@@ -1,1 +1,49 @@
 
+ /*box er hver enkelt individuelle div, der tekst er bare en placeholder for bilde atm*/
+
+.center {
+    margin: auto;
+    width: 400px;
+    border: 5px solid floralwhite;
+    padding: 10px;
+    background-color: gold;
+    text-align: center;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+}
+
+.brett {
+    grid-template-columns: 100px 100px 100px 100px;
+    display: grid;
+    
+    width: 400px;
+    height: 300px;
+
+    background-color: #D2B48C;
+/* margin: auto er nødvendig for å få elementene sentrert*/  
+    margin: auto;
+    padding: 10px;
+    border: 5px solid floralwhite;
+}
+
+/*Prøver "brikkeboks" til de løse delene og brett til "puslespillet"*/
+
+.brikkeboks {
+   grid-template-columns: 100px 100px 100px 100px 100px 100px;
+   display: grid;
+   
+   height: 200px;
+   width: 600px;
+   
+   background-color: #FFFAFA;
+/* margin: auto er nødvendig for å få elementene sentrert*/     
+   margin: auto;
+   padding: 10px;
+   border: 5px solid floralwhite;
+
+/* experimenterer med "brikkeboks" for å få det litt rotete ish */
+}
+
