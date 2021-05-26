@@ -1,13 +1,18 @@
 class PuzzlePiece
 {  
-    constructor(_id, _x, _y)
+    constructor(_id, _x, _y, _isRandom)
     {
         this.x = _x;
         this.y = _y;
 
         this.obj = document.getElementById(_id);
+
+        if (_isRandom)
+            this.placeRandom();
+        
         this.obj.style.left = getPixels(this.x);
         this.obj.style.top = getPixels(this.y);
+            
     }
 
     setOffset(_mouseX, _mouseY)
@@ -27,5 +32,11 @@ class PuzzlePiece
     {
         this.obj.style.left = getPixels(this.x);
         this.obj.style.top = getPixels(this.y);
+    }
+
+    placeRandom()
+    {   
+        this.x = Math.random() * (800-200);
+        this.y = Math.random() * (800-200);
     }
 }

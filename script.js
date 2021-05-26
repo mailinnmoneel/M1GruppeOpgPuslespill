@@ -8,13 +8,10 @@ var puzzleBox;
 var puzzleBoxWidth;
 
 var info;
-var info2;
 
 var puzzlePieces = [];
 var _1_1;
 var _1_2;
-
-//test
 
 
 // Setter opp variabler og henter referanse til elementer
@@ -23,7 +20,6 @@ function init()
     document.addEventListener('mousemove', getMousePosition, true);
 
     info = document.getElementById("info");
-    info2 = document.getElementById("info2");
 
     puzzleBox = document.getElementById("brikkeboks");
 
@@ -34,8 +30,8 @@ function init()
     _1_1 = document.getElementById("1-1");   
     _1_2 = document.getElementById("1-2");
     
-    _1_1 = new PuzzlePiece("1-1", 100,50);
-    _1_2 = new PuzzlePiece("1-2", 320, 50);
+    _1_1 = new PuzzlePiece("1-1", 100,50, true);
+    _1_2 = new PuzzlePiece("1-2", 320, 50, true);
     
     puzzlePieces.push(_1_1);
     puzzlePieces.push(_1_2);
@@ -49,7 +45,6 @@ function init()
 
 function updateItemPos()
 {
-    // Avslutt om vi ikke holder et bilde
     if (heldObject == null)
     {
         info.innerHTML = "Not holding anything"; 
@@ -60,7 +55,7 @@ function updateItemPos()
     if (heldObject != null)
     {
         /* KUN FOR TESTING - KAN TRYGT FJERNES */
-        info.innerHTML = "Holding " + heldObject.obj.id + "At Object Position X: " + heldObject.x + " Y: " + heldObject.y;        
+        info.innerHTML = "Holding " + heldObject.obj.id + " at Object Position X: " + heldObject.x + " Y: " + heldObject.y;        
         info.innerHTML += "  Mouse Position X: " + mousePosition.x + " Y: " + mousePosition.y;
         /* KUN FOR TESTING - KAN TRYGT FJERNES */
 
@@ -76,22 +71,29 @@ async function pickUpPiece(_clickedID)
     if (isHoldingObject)
         return;
 
-    await sleep(20);
+    await sleep(20); // Uten denne blir bildet puttet ned igjen med en gang det plukkes opp siden dropPiece funksjonen aktiverer på samme museklikk
 
     if (_clickedID != puzzleBox.id)
     {        
         isHoldingObject = true;
 
+        // Går igjennom alle puslespillbrikkene en etter en
         for (p = 0; p < puzzlePieces.length; p++)
-        {
+        {    // Helt til vi finner den brikken vi har plukket opp
             if (puzzlePieces[p].obj.id == _clickedID)
-            {
+            {   
+                // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
                 heldObject = puzzlePieces[p];
+                //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
                 heldObject.setOffset(mousePosition.x, mousePosition.y);
+                console.log("Plukket opp brikke nummer " + heldObject.obj.id);
             }
         }
     }
 }
+
+
+
 
 
 function dropPiece()
@@ -99,7 +101,7 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    console.log("Dropped picture number " + heldObject.obj.id);
+    console.log("La ned brikke nummer " + heldObject.obj.id);
     heldObject = null;
     isHoldingObject = false; 
 }
@@ -124,7 +126,7 @@ function getMousePosition(e)
 
 
 
-// Konverterer et tall til pixelverdi
+// Konverterer et tall til pixelverdi som en string
 function getPixels(coord)
 {
     return coord.toString() + "px";
@@ -146,20 +148,14 @@ function sleep(ms)
 
 
 
-// function placeBrikke()
+// function placeRandom()
 // {
 //     let x;
 //     let y;
-    
-//      x = Math.random() * breddePåGrid;
-//      y = Math.random() * høydePåGrid;
-    
-//     if (x > breddePåGrid - breddePåBrikke)
-//         x = breddePåGrid - breddePåBrikke;
-    
-//     if (y > høydePåGrid - høydePåBrikke)
-//         y = høydePåGrid - høydePåBrikke;
-    
+   
+//     x = Math.random() * (breddePåGrid-breddePåBrikke);
+//     y = Math.random() * (høydePåGrid-høydePåBrikke);
+   
 //     div.style.left = x.toString() + "px";
 //     div.style.top = y.toString() + "px";
 // }
