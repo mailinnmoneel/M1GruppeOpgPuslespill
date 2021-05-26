@@ -6,3 +6,6 @@ Teamoppgave: Puslespill! Del et bilde opp i mindre biter, la bitene ligge på ut
 Gå sammen i teamene deres - planlegg og jobb sammen for å finne en løsning - pass på at alle får bidratt! Blir dere tidlig ferdig, så bruk resten av TP øktene til å slippe kreativiteten løs og "jazze opp" oppgaven, eller jobbe med eget prosjekt sammen
 
 Gleder meg til å se resultatene neste mandag! Hint: onclick this innerHTML
+
+
+never gonna give you up
