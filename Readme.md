@@ -1,4 +1,4 @@
-Gruppeoppgave_2
+Gruppeoppgave 2
 Gruppeoppgave uke 3
 
 Teamoppgave: Puslespill! Del et bilde opp i mindre biter, la bitene ligge på utsiden av en "hovedramme"og legg dem sammen i rammen ved å klikke på bitene, og velge hvor den skal legges ved å klikke i rammen - eller omvendt.
