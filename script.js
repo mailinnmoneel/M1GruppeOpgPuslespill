@@ -8,6 +8,7 @@ var puzzleBox;
 var puzzleBoxWidth;
 
 var info;
+var info2;
 
 var puzzlePieces = [];
 var _1_1;
@@ -19,6 +20,8 @@ function init()
     document.addEventListener('mousemove', getMousePosition, true);
 
     info = document.getElementById("info");
+    info2 = document.getElementById("info2");
+
     puzzleBox = document.getElementById("brikkeboks");
 
     puzzleBox.style.width = getPixels(boxWidth);
@@ -35,7 +38,6 @@ function init()
     puzzlePieces.push(_1_2);
 
     isHoldingObject = false;
-
     setInterval(updateItemPos, 10);
 }
 
@@ -51,17 +53,17 @@ function updateItemPos()
     
     if (heldObject != null)
     {
-        /* KUN FOR TESTING */
+        /* KUN FOR TESTING - KAN TRYGT FJERNES */
         info.innerHTML = "Holding " + heldObject.obj.id + "At Object Position X: " + heldObject.x + " Y: " + heldObject.y;        
         info.innerHTML += "  Mouse Position X: " + mousePosition.x + " Y: " + mousePosition.y;
-        /* KUN FOR TESTING */
+        /* KUN FOR TESTING - KAN TRYGT FJERNES */
 
-        heldObject.setPosition(mousePosition.x, mousePosition.y)
-        setPosition(heldObject.obj, heldObject.x, heldObject.y);
+        heldObject.setPosition(mousePosition.x, mousePosition.y);
     }
 }
 
-// Plukker opp brikke
+
+
 async function pickUpPiece(_clickedID)
 {  
 
@@ -73,15 +75,18 @@ async function pickUpPiece(_clickedID)
     if (_clickedID != puzzleBox.id)
     {        
         isHoldingObject = true;
+
         for (p = 0; p < puzzlePieces.length; p++)
         {
             if (puzzlePieces[p].obj.id == _clickedID)
             {
-                heldObject = puzzlePieces[p].obj;
+                heldObject = puzzlePieces[p];
+                heldObject.setOffset(mousePosition.x, mousePosition.y);
             }
         }
     }
 }
+
 
 function dropPiece()
 {
@@ -93,13 +98,12 @@ function dropPiece()
     isHoldingObject = false; 
 }
 
-function setPosition(_obj, _x, _y)
-{
-    _obj.style.left = getPixels(_x-heldObject.offsetx);
-    _obj.style.top = getPixels(_y-heldObject.offsety);
-}
 
 
+
+
+
+// Denne oppdaterer museposisjonen hver gang musa flyttes. 'e' argumentet kommer fra EventListeneren vi la til i init()
 function getMousePosition(e)
 {
     // Vet ikke hva denne gjør
@@ -114,6 +118,7 @@ function getMousePosition(e)
 
 
 
+// Konverterer et tall til pixelverdi
 function getPixels(coord)
 {
     return coord.toString() + "px";
@@ -128,6 +133,25 @@ class PuzzlePiece
         this.y = _y;
 
         this.obj = document.getElementById(_id);
+        this.obj.style.left = getPixels(this.x);
+        this.obj.style.top = getPixels(this.y);
+    }
+
+    setOffset(_mouseX, _mouseY)
+    {
+        this.offsetX = this.x - _mouseX;
+        this.offsetY = this.y - _mouseY;
+    }
+
+    setPosition(_x, _y)
+    {
+        this.x = _x + this.offsetX;
+        this.y = _y + this.offsetY;
+        this.updatePosition();
+    }
+
+    updatePosition()
+    {
         this.obj.style.left = getPixels(this.x);
         this.obj.style.top = getPixels(this.y);
     }
