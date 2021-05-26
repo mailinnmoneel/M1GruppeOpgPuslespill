@@ -14,6 +14,9 @@ var puzzlePieces = [];
 var _1_1;
 var _1_2;
 
+//test
+
+
 // Setter opp variabler og henter referanse til elementer
 function init()
 {
@@ -40,6 +43,9 @@ function init()
     isHoldingObject = false;
     setInterval(updateItemPos, 10);
 }
+
+
+
 
 function updateItemPos()
 {
