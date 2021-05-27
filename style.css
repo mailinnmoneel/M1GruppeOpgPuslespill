@@ -1,5 +1,5 @@
 
-.brikke{
+.brikke{    
     z-index: 2;
     position: absolute;
 }
@@ -36,7 +36,7 @@
     border: 5px solid #994700;
 }
 
-.box{
+.box{    
     z-index: 1;
     border: #4d2400;
     border-width: 5px;

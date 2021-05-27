@@ -24,10 +24,17 @@ class PuzzlePiece
         this.offsetY = this.y - _mouseY;
     }
 
-    setPosition(_x, _y)
+    setPosition(_x, _y, _useOffset)
     {
-        this.x = _x + this.offsetX;
-        this.y = _y + this.offsetY;
+        this.x = _x;
+        this.y = _y;
+
+        if (_useOffset)
+        {
+            this.x += this.offsetX;
+            this.y += this.offsetY;
+        }
+
         this.updatePosition();
     }
 
@@ -38,8 +45,10 @@ class PuzzlePiece
     }
 
     placeRandom()
-    {   
-        this.x = distanceFromLeft + (Math.random() * (boxWidth -this.pieceWidth));
-        this.y = distanceFromTop + (Math.random() * (boxHeight -this.pieceHeight));
+    {  
+        let rect = puzzleBox.getBoundingClientRect();
+
+        this.x = rect.left + (Math.random() * ((rect.right-rect.left) - this.pieceWidth));
+        this.y = rect.top + (Math.random() * ((rect.bottom-rect.top) - this.pieceHeight));
     }
 }

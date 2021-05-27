@@ -23,8 +23,9 @@ function init()
     document.addEventListener('mousemove', getMousePosition, true);
 
     puzzleBox = document.getElementById("brikkeboks");
+    puzzleGrid = document.getElementById("brikkebrett");
 
-    // Setter style manuelt i stedet for via CSS. Går ikke an å enkelt hente style-data om dette ikke gjøres
+    // Setter style manuelt i stedet for via CSS. Går ikke an å enkelt hente style width/height om det kun settes in stylesheet
     puzzleBox.style.width = getPixels(boxWidth);
     puzzleBox.style.height = getPixels(boxHeight);
    
@@ -96,6 +97,29 @@ function createPieces()
 }
 
 
+var gridHasPiece = false;
+
+function checkIfClickedInPlacementGrid()
+{
+    let rect = puzzleGrid.getBoundingClientRect();
+
+    if( mousePosition.x > rect.left &&
+        mousePosition.x < rect.right - (rect.right / 4) &&
+        mousePosition.y > rect.top &&
+        mousePosition.y < rect.bottom - (rect.bottom / 3))
+    {
+        if (gridHasPiece == false)
+        {
+            document.getElementById("plass_1_1").appendChild(heldObject.obj);
+            heldObject.setPosition(0, 0, false); 
+            heldObject = null;
+            isHoldingObject = false; 
+
+            gridHasPiece = true;
+        }
+
+    }
+}
 
 
 
@@ -107,7 +131,7 @@ function updateItemPos()
 
     
     if (heldObject != null)
-        heldObject.setPosition(mousePosition.x, mousePosition.y);
+        heldObject.setPosition(mousePosition.x, mousePosition.y, true);
 }
 
 
@@ -120,9 +144,7 @@ async function pickUpPiece(_clickedID)
         return;
 
     await sleep(20); // Uten denne blir bildet puttet ned igjen med en gang det plukkes opp siden dropPiece funksjonen aktiverer på samme museklikk
-
-    if (_clickedID != puzzleBox.id)
-    {        
+      
         isHoldingObject = true;
 
         // Går igjennom alle puslespillbrikkene en etter en
@@ -139,7 +161,7 @@ async function pickUpPiece(_clickedID)
                 console.log("Plukket opp brikke nummer " + heldObject.obj.id);
             }
         }
-    }
+    // }
 }
 
 
@@ -147,13 +169,17 @@ async function pickUpPiece(_clickedID)
 
 
 function dropPiece()
-{
+{    
+    
     if (isHoldingObject == false)
         return;   
     
     console.log("La ned brikke nummer " + heldObject.obj.id);
     // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
     heldObject.obj.style.zIndex = "2";
+
+    checkIfClickedInPlacementGrid();
+
     heldObject = null;
     isHoldingObject = false; 
 }
