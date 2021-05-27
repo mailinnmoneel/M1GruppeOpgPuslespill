@@ -8,4 +8,8 @@ Gå sammen i teamene deres - planlegg og jobb sammen for å finne en løsning - 
 Gleder meg til å se resultatene neste mandag! Hint: onclick this innerHTML
 
 
-never gonna give you up
+TODO:
+
+a) Lage 2 grids (grønn og rød plassering)
+b) få brikkene til å "snappe" på plass i det røde griddet når de plasseres
+
