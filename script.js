@@ -8,9 +8,21 @@ var puzzleBox;
 var puzzleBoxWidth;
 
 var puzzlePieces = [];
+
 var _1_1;
 var _1_2;
+var _1_3;
+var _1_4;
 
+var _2_1;
+var _2_2;
+var _2_3;
+var _2_4;
+
+var _3_1;
+var _3_2;
+var _3_3;
+var _3_4;
 
 // Setter opp variabler og henter referanse til elementer
 function init()
@@ -21,16 +33,37 @@ function init()
 
     puzzleBox.style.width = getPixels(boxWidth);
     puzzleBox.style.height = getPixels(boxHeight);
-
-    // Referanse til alle elementene. Kan gjøres bedre men tar det kjapt for å kunne teste
-    _1_1 = document.getElementById("1-1");   
-    _1_2 = document.getElementById("1-2");
-    
-    _1_1 = new PuzzlePiece("1-1", 100,50, true);
+   
+    // Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet
+    _1_1 = new PuzzlePiece("1-1", 100, 50, true);
     _1_2 = new PuzzlePiece("1-2", 320, 50, true);
+    _1_3 = new PuzzlePiece("1-3", 320, 50, true);
+    _1_4 = new PuzzlePiece("1-4", 320, 50, true);
+    
+    _2_1 = new PuzzlePiece("2-1", 100, 50, true);
+    _2_2 = new PuzzlePiece("2-2", 320, 50, true);
+    _2_3 = new PuzzlePiece("2-3", 320, 50, true);
+    _2_4 = new PuzzlePiece("2-4", 320, 50, true);
+
+    _3_1 = new PuzzlePiece("3-1", 100, 50, true);
+    _3_2 = new PuzzlePiece("3-2", 320, 50, true);
+    _3_3 = new PuzzlePiece("3-3", 320, 50, true);
+    _3_4 = new PuzzlePiece("3-4", 320, 50, true);
     
     puzzlePieces.push(_1_1);
     puzzlePieces.push(_1_2);
+    puzzlePieces.push(_1_3);
+    puzzlePieces.push(_1_4);
+    
+    puzzlePieces.push(_2_1);
+    puzzlePieces.push(_2_2);
+    puzzlePieces.push(_2_3);
+    puzzlePieces.push(_2_4);
+    
+    puzzlePieces.push(_3_1);
+    puzzlePieces.push(_3_2);
+    puzzlePieces.push(_3_3);
+    puzzlePieces.push(_3_4);
 
     isHoldingObject = false;
     setInterval(updateItemPos, 10);
