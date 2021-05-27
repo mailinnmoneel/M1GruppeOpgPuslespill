@@ -1,20 +1,46 @@
-.brikkeboks
-{
-    display: grid;
-    margin: auto;
 
-    grid-template-columns: 200px 200px 200px 200px;
-    grid-template-rows: 200px 200px 200px;
-    column-gap: 5px;
-    row-gap: 5px;    
-    
-    width: 400px;
-    height: 400px;
-}
-
-.brikke
-{
+.brikke{
+    z-index: 2;
     position: absolute;
-    width: 200px;
-    height: 200px;
 }
+
+.center {
+    margin: auto;
+    width: 400px;
+    border: 5px solid #994700;
+    color: #4d2400;
+    padding: 0px;
+    background-color:#FFDAB9;
+    text-align: center;
+}
+
+.helebrettet {
+    display: grid;
+    grid-template-columns: 800px 800px;
+    margin: auto;
+}
+
+.brett {
+    z-index: 0;
+    grid-template-columns: 200px 200px 200px 200px;
+    display: grid;
+    
+    width: 800px;
+    height: 600px;
+
+    background-color: #4d2400;
+
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    border: 5px solid #994700;
+}
+
+.box{
+    z-index: 1;
+    border: #4d2400;
+    border-width: 5px;
+    position: relative;
+    background-color: #FFF5EE;
+}
+
