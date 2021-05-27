@@ -3,15 +3,17 @@ var isHoldingObject;
 
 var boxWidth = 800;
 var boxHeight = 600;
-var paddingLeft = 20;
-var paddingTop = 120;
+var distanceFromLeft = 20;
+var distanceFromTop = 120;
 
 var puzzleBox;
 var puzzleBoxWidth;
 
 var puzzlePieces = [];
 var pieces = 12;
-var pieceIDs = ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"];
+var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
+                "2-1", "2-2", "2-3", "2-4", 
+                "3-1", "3-2", "3-3", "3-4"];
 
 
 
@@ -22,10 +24,11 @@ function init()
 
     puzzleBox = document.getElementById("brikkeboks");
 
+    // Setter style manuelt i stedet for via CSS. Går ikke an å enkelt hente style-data om dette ikke gjøres
     puzzleBox.style.width = getPixels(boxWidth);
     puzzleBox.style.height = getPixels(boxHeight);
    
-    // Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet
+    /* Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet */
 
     // let _1_1;
     // let _1_2;
@@ -79,6 +82,10 @@ function init()
 }
 
 
+
+
+
+
 function createPieces()
 {
     for (p = 0; p < pieces; p++)
@@ -87,6 +94,10 @@ function createPieces()
         puzzlePieces.push(newPiece);
     }    
 }
+
+
+
+
 
 
 function updateItemPos()
@@ -98,6 +109,7 @@ function updateItemPos()
     if (heldObject != null)
         heldObject.setPosition(mousePosition.x, mousePosition.y);
 }
+
 
 
 
@@ -120,6 +132,7 @@ async function pickUpPiece(_clickedID)
             {   
                 // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
                 heldObject = puzzlePieces[p];
+                // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
                 heldObject.obj.style.zIndex = "3";
                 //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
                 heldObject.setOffset(mousePosition.x, mousePosition.y);
@@ -139,6 +152,7 @@ function dropPiece()
         return;   
     
     console.log("La ned brikke nummer " + heldObject.obj.id);
+    // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
     heldObject.obj.style.zIndex = "2";
     heldObject = null;
     isHoldingObject = false; 
@@ -149,7 +163,7 @@ function dropPiece()
 
 
 
-// Denne oppdaterer museposisjonen hver gang musa flyttes. 'e' argumentet kommer fra EventListeneren vi la til i init()
+// Denne oppdaterer museposisjonen hver gang musa flyttes. 'e' argumentet er museposisjonen som kommer fra EventListeneren vi la til i init()
 function getMousePosition(e)
 {
     // Vet ikke hva denne gjør
@@ -164,12 +178,13 @@ function getMousePosition(e)
 
 
 
+
+
 // Konverterer et tall til pixelverdi som en string
 function getPixels(coord)
 {
     return coord.toString() + "px";
 }
-
 
 
 
