@@ -39,7 +39,7 @@ class PuzzlePiece
 
     placeRandom()
     {   
-        this.x = Math.random() * (800-this.pieceWidth);
-        this.y = Math.random() * (800-this.pieceHeight);
+        this.x = paddingLeft + (Math.random() * (boxWidth -this.pieceWidth));
+        this.y = paddingTop + (Math.random() * (boxHeight -this.pieceHeight));
     }
 }

@@ -3,26 +3,17 @@ var isHoldingObject;
 
 var boxWidth = 800;
 var boxHeight = 600;
+var paddingLeft = 20;
+var paddingTop = 120;
 
 var puzzleBox;
 var puzzleBoxWidth;
 
 var puzzlePieces = [];
+var pieces = 12;
+var pieceIDs = ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"];
 
-var _1_1;
-var _1_2;
-var _1_3;
-var _1_4;
 
-var _2_1;
-var _2_2;
-var _2_3;
-var _2_4;
-
-var _3_1;
-var _3_2;
-var _3_3;
-var _3_4;
 
 // Setter opp variabler og henter referanse til elementer
 function init()
@@ -35,41 +26,67 @@ function init()
     puzzleBox.style.height = getPixels(boxHeight);
    
     // Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet
-    _1_1 = new PuzzlePiece("1-1", 100, 50, true);
-    _1_2 = new PuzzlePiece("1-2", 320, 50, true);
-    _1_3 = new PuzzlePiece("1-3", 320, 50, true);
-    _1_4 = new PuzzlePiece("1-4", 320, 50, true);
-    
-    _2_1 = new PuzzlePiece("2-1", 100, 50, true);
-    _2_2 = new PuzzlePiece("2-2", 320, 50, true);
-    _2_3 = new PuzzlePiece("2-3", 320, 50, true);
-    _2_4 = new PuzzlePiece("2-4", 320, 50, true);
 
-    _3_1 = new PuzzlePiece("3-1", 100, 50, true);
-    _3_2 = new PuzzlePiece("3-2", 320, 50, true);
-    _3_3 = new PuzzlePiece("3-3", 320, 50, true);
-    _3_4 = new PuzzlePiece("3-4", 320, 50, true);
+    // let _1_1;
+    // let _1_2;
+    // let _1_3;
+    // let _1_4;
+
+    // let _2_1;
+    // let _2_2;
+    // let _2_3;
+    // let _2_4;
+
+    // let _3_1;
+    // let _3_2;
+    // let _3_3;
+    // let _3_4;
+
+    // _1_1 = new PuzzlePiece("1-1", 100, 50, true);
+    // _1_2 = new PuzzlePiece("1-2", 320, 50, true);
+    // _1_3 = new PuzzlePiece("1-3", 320, 50, true);
+    // _1_4 = new PuzzlePiece("1-4", 320, 50, true);
     
-    puzzlePieces.push(_1_1);
-    puzzlePieces.push(_1_2);
-    puzzlePieces.push(_1_3);
-    puzzlePieces.push(_1_4);
+    // _2_1 = new PuzzlePiece("2-1", 100, 50, true);
+    // _2_2 = new PuzzlePiece("2-2", 320, 50, true);
+    // _2_3 = new PuzzlePiece("2-3", 320, 50, true);
+    // _2_4 = new PuzzlePiece("2-4", 320, 50, true);
+
+    // _3_1 = new PuzzlePiece("3-1", 100, 50, true);
+    // _3_2 = new PuzzlePiece("3-2", 320, 50, true);
+    // _3_3 = new PuzzlePiece("3-3", 320, 50, true);
+    // _3_4 = new PuzzlePiece("3-4", 320, 50, true);
     
-    puzzlePieces.push(_2_1);
-    puzzlePieces.push(_2_2);
-    puzzlePieces.push(_2_3);
-    puzzlePieces.push(_2_4);
+    // puzzlePieces.push(_1_1);
+    // puzzlePieces.push(_1_2);
+    // puzzlePieces.push(_1_3);
+    // puzzlePieces.push(_1_4);
     
-    puzzlePieces.push(_3_1);
-    puzzlePieces.push(_3_2);
-    puzzlePieces.push(_3_3);
-    puzzlePieces.push(_3_4);
+    // puzzlePieces.push(_2_1);
+    // puzzlePieces.push(_2_2);
+    // puzzlePieces.push(_2_3);
+    // puzzlePieces.push(_2_4);
+    
+    // puzzlePieces.push(_3_1);
+    // puzzlePieces.push(_3_2);
+    // puzzlePieces.push(_3_3);
+    // puzzlePieces.push(_3_4);
+
+    createPieces();
 
     isHoldingObject = false;
     setInterval(updateItemPos, 10);
 }
 
 
+function createPieces()
+{
+    for (p = 0; p < pieces; p++)
+    {
+        let newPiece = new PuzzlePiece(pieceIDs[p], 0, 0, true);
+        puzzlePieces.push(newPiece);
+    }    
+}
 
 
 function updateItemPos()
