@@ -9,7 +9,7 @@ Gleder meg til å se resultatene neste mandag! Hint: onclick this innerHTML
 
 
 TODO:
-https://i.imgur.com/ZDsnh2s.png
+https://github.com/mailinnmoneel/Puslespill/blob/merge/Planlegging/layout.png
 
 a) Lage 2 grids (grønn og rød plassering)
 b) få brikkene til å "snappe" på plass i det røde griddet når de plasseres
