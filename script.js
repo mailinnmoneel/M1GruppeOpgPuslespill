@@ -7,8 +7,6 @@ var boxHeight = 600;
 var puzzleBox;
 var puzzleBoxWidth;
 
-var info;
-
 var puzzlePieces = [];
 var _1_1;
 var _1_2;
@@ -18,8 +16,6 @@ var _1_2;
 function init()
 {
     document.addEventListener('mousemove', getMousePosition, true);
-
-    info = document.getElementById("info");
 
     puzzleBox = document.getElementById("brikkeboks");
 
@@ -46,21 +42,11 @@ function init()
 function updateItemPos()
 {
     if (heldObject == null)
-    {
-        info.innerHTML = "Not holding anything"; 
-        return;
-    }     
+        return;  
 
     
     if (heldObject != null)
-    {
-        /* KUN FOR TESTING - KAN TRYGT FJERNES */
-        info.innerHTML = "Holding " + heldObject.obj.id + " at Object Position X: " + heldObject.x + " Y: " + heldObject.y;        
-        info.innerHTML += "  Mouse Position X: " + mousePosition.x + " Y: " + mousePosition.y;
-        /* KUN FOR TESTING - KAN TRYGT FJERNES */
-
         heldObject.setPosition(mousePosition.x, mousePosition.y);
-    }
 }
 
 
@@ -142,20 +128,3 @@ function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
-
-
-
-
-// function placeRandom()
-// {
-//     let x;
-//     let y;
-   
-//     x = Math.random() * (breddePåGrid-breddePåBrikke);
-//     y = Math.random() * (høydePåGrid-høydePåBrikke);
-   
-//     div.style.left = x.toString() + "px";
-//     div.style.top = y.toString() + "px";
-// }
