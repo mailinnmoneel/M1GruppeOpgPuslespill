@@ -10,12 +10,34 @@
 
         <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
+        <script src="/Classes/PuzzlePiece.js"></script>
 
     </head>
 
-    <body>
+    <body onload="init()">
 
-        <div class="center"><h1>Løs puslespillet</h1></div>
+        <div id="brikkeboks" onclick="dropPiece()" class="brikkeboks">
+            <img id="1-1" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-1.png" alt="Brikke 1-1" width="200px" height="200px">
+            <img id="1-2" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-2.png" alt="Brikke 1-2" width="200px" height="200px">
+            <img id="1-3" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-3.png" alt="Brikke 1-3" width="200px" height="200px">
+            <img id="1-4" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-4.png" alt="Brikke 1-4" width="200px" height="200px">
+
+            <img id="2-1" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-1.png" alt="Brikke 2-1" width="200px" height="200px">
+            <img id="2-2" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-2.png" alt="Brikke 2-2" width="200px" height="200px">
+            <img id="2-3" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-3.png" alt="Brikke 2-3" width="200px" height="200px">
+            <img id="2-4" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-4.png" alt="Brikke 2-4" width="200px" height="200px">
+
+            <img id="3-1" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-1.png" alt="Brikke 3-1" width="200px" height="200px">
+            <img id="3-2" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-2.png" alt="Brikke 3-2" width="200px" height="200px">
+            <img id="3-3" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-3.png" alt="Brikke 3-3" width="200px" height="200px">
+            <img id="3-4" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-4.png" alt="Brikke 3-4" width="200px" height="200px">
+
+        </div>
+
+
+
+/*
+       <div class="center"><h1>Løs puslespillet</h1></div>
 
          <!--Prøver "brikkeboks" til de løse delene og brett til "puslespillet"-->
                   
@@ -37,6 +59,8 @@
         </div>
         
         
+        <div class="brett"></div>
+
         
         <div class="brett">
               <div class="box" id="div1r1">1r1</div>
@@ -54,7 +78,7 @@
               <div class="box" id="div11r3">11r3</div>
               <div class="box" id="div12r3">12r3</div>
         </div>
-              
+       */
               
 
     </body>

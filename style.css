@@ -1,4 +1,6 @@
 
+
+
  /*box er hver enkelt individuelle div, der tekst er bare en placeholder for bilde atm*/
 
 .center {
@@ -46,4 +48,29 @@
 
 /* experimenterer med "brikkeboks" for å få det litt rotete ish */
 }
+
+=======
+  /*
+/*
+.brikkeboks
+{
+    display: grid;
+    margin: auto;
+
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-template-rows: 200px 200px 200px;
+    column-gap: 5px;
+    row-gap: 5px;    
+    
+    width: 400px;
+    height: 400px;
+}
+
+.brikke
+{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+}
+  */
 
