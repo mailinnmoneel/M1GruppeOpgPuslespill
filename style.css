@@ -1,76 +1,66 @@
 
-
-
- /*box er hver enkelt individuelle div, der tekst er bare en placeholder for bilde atm*/
+.brikke{
+    z-index: 2;
+    position: absolute;
+}
 
 .center {
     margin: auto;
     width: 400px;
-    border: 5px solid floralwhite;
-    padding: 10px;
-    background-color: gold;
+    border: 5px solid #994700;
+    color: #4d2400;
+    padding: 0px;
+    background-color:#FFDAB9;
     text-align: center;
 }
 
-.box {
-    width: 100px;
-    height: 100px;
+.helebrettet {
+    display: grid;
+    grid-template-columns: 800px 800px;
+    margin: auto;  
 }
 
 .brett {
-    grid-template-columns: 100px 100px 100px 100px;
+    z-index: 0;
+    grid-template-columns: 200px 200px 200px 200px;
     display: grid;
     
-    width: 400px;
-    height: 300px;
+    width: 800px;
+    height: 600px;
 
-    background-color: #D2B48C;
-/* margin: auto er nødvendig for å få elementene sentrert*/  
-    margin: auto;
-    padding: 10px;
-    border: 5px solid floralwhite;
+    background-color: #4d2400;
+   /* margin: auto er nødvendig for å få elementene sentrert*/  
+   /* margin: auto; */ 
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    border: 5px solid #994700;
 }
+
+.box{
+    z-index: 1;
+    border: #4d2400;
+    border-width: 5px;
+    position: relative;
+    background-color: #FFF5EE;
+}
+
 
 /*Prøver "brikkeboks" til de løse delene og brett til "puslespillet"*/
 
-.brikkeboks {
+ /* .brikkeboks {    
+   
    grid-template-columns: 100px 100px 100px 100px 100px 100px;
    display: grid;
    
-   height: 200px;
-   width: 600px;
+   height: 600px;
+   width: 800px;
    
    background-color: #FFFAFA;
-/* margin: auto er nødvendig for å få elementene sentrert*/     
+ margin: auto er nødvendig for å få elementene sentrert     
    margin: auto;
    padding: 10px;
    border: 5px solid floralwhite;
 
-/* experimenterer med "brikkeboks" for å få det litt rotete ish */
-}
-
-=======
-  /*
-/*
-.brikkeboks
-{
-    display: grid;
-    margin: auto;
-
-    grid-template-columns: 200px 200px 200px 200px;
-    grid-template-rows: 200px 200px 200px;
-    column-gap: 5px;
-    row-gap: 5px;    
-    
-    width: 400px;
-    height: 400px;
-}
-
-.brikke
-{
-    position: absolute;
-    width: 200px;
-    height: 200px;
-}
-  */
-
+ experimenterer med "brikkeboks" for å få det litt rotete ish
+} */

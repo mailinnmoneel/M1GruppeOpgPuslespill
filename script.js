@@ -103,6 +103,7 @@ async function pickUpPiece(_clickedID)
             {   
                 // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
                 heldObject = puzzlePieces[p];
+                heldObject.obj.style.zIndex = "3";
                 //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
                 heldObject.setOffset(mousePosition.x, mousePosition.y);
                 console.log("Plukket opp brikke nummer " + heldObject.obj.id);
@@ -121,6 +122,7 @@ function dropPiece()
         return;   
     
     console.log("La ned brikke nummer " + heldObject.obj.id);
+    heldObject.obj.style.zIndex = "2";
     heldObject = null;
     isHoldingObject = false; 
 }
