@@ -44,7 +44,8 @@ function createPieces()
 {
     for (p = 0; p < numberOfPieces; p++)
     {
-        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true, p+1);        
+        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true); 
+        newPiece.setDrawDepth(p+1);     
         puzzlePieces.push(newPiece);
     }    
 }
@@ -120,6 +121,8 @@ function dropPiece()
 
 
 
+
+
 function sortPiecesByzIndex(_indexOfDroppedPiece, _heldObject)
 {
     for (p = 0; p < puzzlePieces.length; p++)
@@ -128,16 +131,14 @@ function sortPiecesByzIndex(_indexOfDroppedPiece, _heldObject)
         {            
             if (puzzlePieces[p].zIndex > 1)
             {
-                puzzlePieces[p].zIndex--;
-                puzzlePieces[p].obj.style.zIndex--;
-            }
-            
+                puzzlePieces[p].setDrawDepth(puzzlePieces[p].zIndex-1);
+            }            
         }                 
     }
 
-    _heldObject.zIndex = numberOfPieces;
-    _heldObject.obj.style.zIndex = numberOfPieces;
+    _heldObject.setDrawDepth(numberOfPieces);
 }
+
 
 
 
