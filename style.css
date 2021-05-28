@@ -20,7 +20,7 @@
 } */
 
 .brett {
-    z-index: 0;
+    z-index: -1;
     grid-template-columns: 200px 200px 200px 200px;
     display: grid;
     
@@ -41,18 +41,18 @@
     background-repeat: no-repeat;
     background-position: right 5px top 5px;
     background-image: url("/img/backgroundBox.png");
-    z-index: 0;
+    z-index: -1;
 }
 
 .bakgrunn{
     background-repeat: no-repeat;
     background-position: right 5px top 5px;
     background-image: url("/img/cardboardBackground.png");
-    z-index: 0;
+    z-index: -1;
 }
 
 .box{    
-    z-index: 0;
+    z-index: -1;
     border: #4d2400;
     border-width: 5px;
     position: relative;

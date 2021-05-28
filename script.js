@@ -81,7 +81,6 @@ async function pickUpPiece(_clickedID)
     { 
         if (puzzlePieces[p].obj.id == _clickedID)
         {   
-
             heldObject = puzzlePieces[p];
             heldObject.obj.style.zIndex = numberOfPieces+1;
             
@@ -108,7 +107,8 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    sortPiecesByzIndex(heldObject.obj.style.zIndex);
+    sortPiecesByzIndex(heldObject.pieceId, heldObject);
+
     heldObject.setOffset(0,0); 
 
     checkIfClickedInPlacementGrid();
@@ -118,6 +118,24 @@ function dropPiece()
 }
 
 
+function sortPiecesByzIndex(_indexOfDroppedPiece, _heldObject)
+{
+    for (p = 0; p < puzzlePieces.length; p++)
+    {
+        if (puzzlePieces[p].pieceId > _indexOfDroppedPiece && puzzlePieces[p].isPlacedOnGrid == false)
+        {            
+            if (puzzlePieces[p].pieceId > 1)
+            {
+                puzzlePieces[p].pieceId--;
+                puzzlePieces[p].obj.style.zIndex--;
+            }
+            
+        }                 
+    }
+
+    _heldObject.pieceId = numberOfPieces;
+    _heldObject.obj.style.zIndex = numberOfPieces;
+}
 
 
 
@@ -132,7 +150,8 @@ function snapPiece(_idVerdi)
     heldObject.setPosition(rect.left, rect.top, false); 
 
     heldObject.isPlacedOnGrid = true;
-    heldObject.obj.style.zIndex = 2;
+    heldObject.obj.style.zIndex = 0;
+    heldObject.pieceId = 0;
     heldObject.setCurrentGridLocation(_idVerdi);
 
     setGridSlotAsOccupied(_idVerdi, true);
