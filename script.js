@@ -242,6 +242,7 @@ function getPixels(coord)
 /*
 
 Forslag: Regne ut rute ved å runde ned museposisjon til nærmeste 200px for X og Y, og så sette posisjon basert på det.
+Theodor og Morten ser på det i helga
 
 */
 
