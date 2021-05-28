@@ -37,10 +37,10 @@
 }
 
 .box{    
-    z-index: 1;
+    z-index: 0;
     border: #4d2400;
     border-width: 5px;
     position: relative;
-    background-color: #FFF5EE;
+    /* background-color: #FFF5EE; */
 }
 

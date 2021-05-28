@@ -3,8 +3,6 @@ var isHoldingObject;
 
 var boxWidth = 800;
 var boxHeight = 600;
-var distanceFromLeft = 20;
-var distanceFromTop = 120;
 
 var puzzleBox;
 var puzzleBoxWidth;
@@ -96,31 +94,29 @@ function createPieces()
     }    
 }
 
-
-var gridHasPiece = false;
-
+/*****************/
+/*  Eksperiment  */
+/*****************/
 function checkIfClickedInPlacementGrid()
 {
     let rect = puzzleGrid.getBoundingClientRect();
 
     if( mousePosition.x > rect.left &&
-        mousePosition.x < rect.right - (rect.right / 4) &&
+        mousePosition.x < rect.left + (boxWidth / 4) &&
         mousePosition.y > rect.top &&
-        mousePosition.y < rect.bottom - (rect.bottom / 3))
+        mousePosition.y < rect.top + (boxHeight / 3))
     {
-        if (gridHasPiece == false)
-        {
-            document.getElementById("plass_1_1").appendChild(heldObject.obj);
-            heldObject.setPosition(0, 0, false); 
-            heldObject = null;
-            isHoldingObject = false; 
+        document.getElementById("plass_1_1").appendChild(heldObject.obj);
+        heldObject.setPosition(0, 0, false); 
+        heldObject.isPlacedOnGrid = true;
 
-            gridHasPiece = true;
-        }
-
+        heldObject = null;        
+        isHoldingObject = false; 
     }
 }
-
+/****************/
+/****************/
+/****************/
 
 
 
@@ -154,9 +150,17 @@ async function pickUpPiece(_clickedID)
             {   
                 // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
                 heldObject = puzzlePieces[p];
+                document.getElementById("brikkeboks").appendChild(heldObject.obj);
                 // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
                 heldObject.obj.style.zIndex = "3";
                 //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
+                
+                if (heldObject.isPlacedOnGrid)
+                {
+                    heldObject.isPlacedOnGrid = false;
+                    heldObject.setPosition(mousePosition.x, mousePosition.y, false);
+                } 
+                
                 heldObject.setOffset(mousePosition.x, mousePosition.y);
                 console.log("Plukket opp brikke nummer " + heldObject.obj.id);
             }
@@ -177,7 +181,7 @@ function dropPiece()
     console.log("La ned brikke nummer " + heldObject.obj.id);
     // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
     heldObject.obj.style.zIndex = "2";
-
+    heldObject.setOffset(0,0); 
     checkIfClickedInPlacementGrid();
 
     heldObject = null;
