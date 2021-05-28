@@ -271,6 +271,9 @@ function checkIfClickedInPlacementGrid()
 }
 
 
+// Kan forsåvidt bare sende med rad.nr i tillegg til leftPos, også henter vi ut ID fra gridIDs's arrayet i stedet for å ha en funksjon per rad.
+// F.eks checkRow(rect.left, radNr). Så blir det snapPiece(gridIDs[ ((radNr - 1) * 4) + kolonneNr ]) for å snappe til et spesifik Grid Element.
+
 function checkRow1(leftPos)
 {
 
@@ -372,6 +375,8 @@ function updateItemPos()
     if (heldObject != null)
         heldObject.setPosition(mousePosition.x, mousePosition.y, true);
 }
+
+
 
 function sleep(ms)
 {
