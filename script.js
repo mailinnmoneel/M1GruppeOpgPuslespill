@@ -214,7 +214,7 @@ async function checkIfPuzzleIsComplete()
 
     for (p = 0; p < puzzlePieces.length; p++)
     {       
-        if (puzzlePieces[p].isPiecePlacedCorrect())
+        if (puzzlePieces[p].isPiecePlacedCorrectly())
         {
             countCorrectlyPlacedPieces += 1;
         }                    

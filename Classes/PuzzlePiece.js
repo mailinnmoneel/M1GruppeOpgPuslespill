@@ -68,7 +68,7 @@ class PuzzlePiece
         this.y = rect.top + boxBorder + (Math.random() * ((rect.bottom-rect.top) - (this.pieceHeight + boxBorder * 2)));
     }
 
-    isPiecePlacedCorrect()
+    isPiecePlacedCorrectly()
     {
         if (this.currentGridLocation == this.correctGridLocation)
             return true;
