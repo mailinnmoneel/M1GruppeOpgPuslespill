@@ -56,8 +56,8 @@ class PuzzlePiece
     {  
         let rect = puzzleBox.getBoundingClientRect();
 
-        this.x = rect.left + (Math.random() * ((rect.right-rect.left) - this.pieceWidth));
-        this.y = rect.top + (Math.random() * ((rect.bottom-rect.top) - this.pieceHeight));
+        this.x = rect.left + boxBorder + (Math.random() * ((rect.right-rect.left) - (this.pieceWidth + boxBorder * 2)));
+        this.y = rect.top + boxBorder + (Math.random() * ((rect.bottom-rect.top) - (this.pieceHeight + boxBorder * 2)));
     }
 
     isPiecePlacedCorrect()

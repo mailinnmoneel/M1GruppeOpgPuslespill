@@ -21,8 +21,6 @@
 }
 
 .brett {
-    background-position: right 5px top 5px;
-    background-image: url("/img/bacgroundGrid.png");
     z-index: 0;
     grid-template-columns: 200px 200px 200px 200px;
     display: grid;
@@ -36,6 +34,20 @@
     padding: 5px;
     margin: 5px;
     border: 5px solid #994700;
+}
+
+.bakgrunn{
+    background-repeat: no-repeat;
+    background-position: right 5px top 5px;
+    background-image: url("/img/bacgroundGrid.png");
+    z-index: 0;
+}
+
+.eske{
+    background-repeat: no-repeat;
+    background-position: right 5px top 5px;
+    background-image: url("/img/backgroundBox.png");
+    z-index: 0;
 }
 
 .box{    

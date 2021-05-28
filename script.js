@@ -4,6 +4,8 @@ var isHoldingObject;
 var boxWidth = 800;
 var boxHeight = 600;
 
+var boxBorder = 50;
+
 var puzzleBox;
 var puzzleBoxWidth;
 
