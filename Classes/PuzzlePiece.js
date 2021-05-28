@@ -67,4 +67,13 @@ class PuzzlePiece
         else
             return false;
     }
+
+    resetPiece()
+    {
+        this.isPlacedOnGrid = false;
+        this.currentGridLocation = false;
+
+        this.randomizeStartPosition();
+        this.updatePosition();
+    }
 }

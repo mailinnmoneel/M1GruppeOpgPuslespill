@@ -210,6 +210,18 @@ async function checkIfPuzzleIsComplete()
 
 
 
+function resetPuzzle()
+{
+    for (i = 0; i < numberOfPieces; i++)
+    {
+        gridElements[i].resetElement();
+        puzzlePieces[i].resetPiece();
+    }
+}
+
+
+
+
 
 
 

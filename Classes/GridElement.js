@@ -18,4 +18,9 @@ class GridElement
     {
         return this.occupied;
     }
+
+    resetElement()
+    {
+        this.occupied = false;
+    }
 }
