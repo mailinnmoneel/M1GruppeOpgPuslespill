@@ -293,8 +293,8 @@ function checkIfClickedByPixelRounding()
     let relativeMouseX = mousePosition.x - rect.left;
     let relativeMouseY = mousePosition.y - rect.top;
 
-    console.log("X Pos: " + Math.floor(relativeMouseX / 200));
-    console.log("Y Pos: " + Math.floor(relativeMouseY / 200));
+    console.log("X Pos: " + Math.floor(relativeMouseX / puzzlePieces[0].pieceWidth));
+    console.log("Y Pos: " + Math.floor(relativeMouseY / puzzlePieces[0].pieceHeight));
 
 }
 /***********************/
