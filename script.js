@@ -12,6 +12,9 @@ var pieces = 12;
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
                 "3-1", "3-2", "3-3", "3-4"];
+var gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
+               "plass_2_1", "plass_2_2", "plass_2_3", "plass_2_4",
+               "plass_3_1", "plass_3_2", "plass_3_3", "plass_3_4"];
 
 
 
@@ -43,75 +46,11 @@ function createPieces()
 {
     for (p = 0; p < pieces; p++)
     {
-        let newPiece = new PuzzlePiece(pieceIDs[p], 0, 0, true);
+        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true);
         puzzlePieces.push(newPiece);
     }    
 }
 
-
-
-function checkIfClickedInPlacementGrid()
-{
-    let rect = puzzleGrid.getBoundingClientRect();
-    //let gridWidth = boxWidth / 4;
-    //let gridHeight = boxHeight / 3;
-
-    console.log(rect.left, rect.right, rect.top, rect.bottom);
-
-    if      (   mousePosition.x > rect.left &&
-                mousePosition.x < rect.left + 200 &&
-                mousePosition.y > rect.top &&
-                mousePosition.y < rect.top + 200)
-            {
-                snapPiece("plass_1_1");
-            }
-    else if(    mousePosition.x > rect.left + 200 &&
-                mousePosition.x < rect.left + 400 &&
-                mousePosition.y > rect.top &&
-                mousePosition.y < rect.top + 200)
-            {
-                snapPiece("plass_1_2");
-            }
-    else if (   mousePosition.x > rect.left +  400 &&
-                mousePosition.x < rect.left +  600 &&
-                mousePosition.y > rect.top &&
-                mousePosition.y < rect.top + 200 )
-    
-            {
-                snapPiece("plass_1_3");
-            }
-    else if (   mousePosition.x > rect.left +  600 &&
-                mousePosition.x < rect.left +  800 &&
-                mousePosition.y > rect.top &&
-                mousePosition.y < rect.top + 200 )
-    
-            {
-                snapPiece("plass_1_4");
-            }          
-}
-
-
-function snapPiece(_idVerdi)
-{
-    document.getElementById(_idVerdi).appendChild(heldObject.obj);
-    heldObject.setPosition(0, 0, false); 
-    heldObject.isPlacedOnGrid = true;
-
-    heldObject = null;  
-    isHoldingObject = false;
-}
-
-
-
-function updateItemPos()
-{
-    if (heldObject == null)
-        return;  
-
-    
-    if (heldObject != null)
-        heldObject.setPosition(mousePosition.x, mousePosition.y, true);
-}
 
 
 
@@ -124,30 +63,30 @@ async function pickUpPiece(_clickedID)
 
     await sleep(20); // Uten denne blir bildet puttet ned igjen med en gang det plukkes opp siden dropPiece funksjonen aktiverer på samme museklikk
       
-        isHoldingObject = true;
+    isHoldingObject = true;
 
-        // Går igjennom alle puslespillbrikkene en etter en
-        for (p = 0; p < puzzlePieces.length; p++)
-        {    // Helt til vi finner den brikken vi har plukket opp
-            if (puzzlePieces[p].obj.id == _clickedID)
-            {   
-                // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
-                heldObject = puzzlePieces[p];
-                document.getElementById("brikkeboks").appendChild(heldObject.obj);
-                // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
-                heldObject.obj.style.zIndex = "3";
-                //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
-                
-                if (heldObject.isPlacedOnGrid)
-                {
-                    heldObject.isPlacedOnGrid = false;
-                    heldObject.setPosition(mousePosition.x, mousePosition.y, false);
-                } 
-                
-                heldObject.setOffset(mousePosition.x, mousePosition.y);
-                console.log("Plukket opp brikke nummer " + heldObject.obj.id);
-            }
+    // Går igjennom alle puslespillbrikkene en etter en
+    for (p = 0; p < puzzlePieces.length; p++)
+    {    // Helt til vi finner den brikken vi har plukket opp
+        if (puzzlePieces[p].obj.id == _clickedID)
+        {   
+            // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
+            heldObject = puzzlePieces[p];
+            document.getElementById("brikkeboks").appendChild(heldObject.obj);
+            // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
+            heldObject.obj.style.zIndex = "3";
+            //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
+            
+            if (heldObject.isPlacedOnGrid)
+            {
+                heldObject.isPlacedOnGrid = false;
+                heldObject.setPosition(mousePosition.x, mousePosition.y, false);
+            } 
+            
+            heldObject.setOffset(mousePosition.x, mousePosition.y);
+            console.log("Plukket opp brikke nummer " + heldObject.obj.id);
         }
+    }
 }
 
 
@@ -174,6 +113,29 @@ function dropPiece()
 
 
 
+function snapPiece(_idVerdi)
+{
+    document.getElementById(_idVerdi).appendChild(heldObject.obj);
+    heldObject.setPosition(0, 0, false); 
+    heldObject.isPlacedOnGrid = true;
+
+    heldObject = null;  
+    isHoldingObject = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Denne oppdaterer museposisjonen hver gang musa flyttes. 'e' argumentet er museposisjonen som kommer fra EventListeneren vi la til i init()
 function getMousePosition(e)
@@ -192,6 +154,13 @@ function getMousePosition(e)
 
 
 
+
+
+
+
+
+
+
 // Konverterer et tall til pixelverdi som en string
 function getPixels(coord)
 {
@@ -202,6 +171,134 @@ function getPixels(coord)
 
 
 
+
+
+
+
+function checkIfClickedInPlacementGrid()
+{
+    let rect = puzzleGrid.getBoundingClientRect();
+    //let gridWidth = boxWidth / 4;
+    //let gridHeight = boxHeight / 3;
+
+    console.log(rect.left, rect.right, rect.top, rect.bottom);
+    
+    if      (   mousePosition.y > rect.top &&
+                mousePosition.y < rect.top + 200 )
+            {
+                checkRow1(rect.left);
+            }
+    else if (   mousePosition.y > rect.top + 200 &&
+                mousePosition.y < rect.top + 400)
+            {
+                checkRow2(rect.left);
+            }
+    else if (   mousePosition.y > rect.top + 400 &&
+                mousePosition.y < rect.top + 600)
+            {
+                checkRow3(rect.left);
+            }
+}
+
+
+function checkRow1(leftPos)
+{
+
+    if  (   mousePosition.x > leftPos &&
+            mousePosition.x < leftPos + 200)
+            {
+                snapPiece("plass_1_1");
+            }
+    else if (   mousePosition.x > leftPos + 200 &&
+                mousePosition.x < leftPos + 400)
+            {
+                snapPiece("plass_1_2");
+            }
+
+    else if (   mousePosition.x > leftPos +  400 &&
+                mousePosition.x < leftPos +  600)
+            {
+                snapPiece("plass_1_3");
+            }
+    else if (   mousePosition.x > leftPos +  600 &&
+                mousePosition.x < leftPos +  800)
+            {
+                snapPiece("plass_1_4");
+            }
+}
+
+
+
+function checkRow2(leftPos)
+{
+    if  (   mousePosition.x > leftPos &&
+            mousePosition.x < leftPos + 200)
+        {
+            snapPiece("plass_2_1");
+        }
+    else if (   mousePosition.x > leftPos + 200 &&
+                mousePosition.x < leftPos + 400)
+        {
+            snapPiece("plass_2_2");
+        }
+
+    else if (   mousePosition.x > leftPos +  400 &&
+                mousePosition.x < leftPos +  600)
+        {
+            snapPiece("plass_2_3");
+        }
+    else if (   mousePosition.x > leftPos +  600 &&
+                mousePosition.x < leftPos +  800)
+        {
+            snapPiece("plass_2_4");
+        }    
+}
+
+
+
+function checkRow3(leftPos)
+{
+    if  (   mousePosition.x > leftPos &&
+            mousePosition.x < leftPos + 200)
+        {
+            snapPiece("plass_3_1");
+        }
+    else if (   mousePosition.x > leftPos + 200 &&
+                mousePosition.x < leftPos + 400)
+        {
+            snapPiece("plass_3_2");
+        }
+
+    else if (   mousePosition.x > leftPos +  400 &&
+                mousePosition.x < leftPos +  600)
+        {
+            snapPiece("plass_3_3");
+        }
+    else if (   mousePosition.x > leftPos +  600 &&
+                mousePosition.x < leftPos +  800)
+        {
+            snapPiece("plass_3_4");
+        }    
+}
+
+
+
+
+
+
+
+
+
+// Flytter brikken vi holder etter musepekeren
+function updateItemPos()
+{
+    if (heldObject == null)
+        return;  
+
+    
+    if (heldObject != null)
+        heldObject.setPosition(mousePosition.x, mousePosition.y, true);
+}
 
 function sleep(ms)
 {

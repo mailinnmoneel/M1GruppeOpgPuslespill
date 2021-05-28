@@ -1,6 +1,6 @@
 class PuzzlePiece
 {  
-    constructor(_id, _x, _y, _isRandom)
+    constructor(_id, _plass, _x, _y, _isRandom)
     {
         this.obj = document.getElementById(_id);
 
@@ -8,6 +8,7 @@ class PuzzlePiece
         this.y = _y;
         
         this.isPlacedOnGrid = false;
+        this.plass = _plass;
 
         this.pieceWidth = 200;
         this.pieceHeight = 200;       
