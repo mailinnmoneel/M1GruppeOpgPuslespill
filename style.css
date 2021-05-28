@@ -21,6 +21,8 @@
 }
 
 .brett {
+    background-position: right 5px top 5px;
+    background-image: url("/img/bacgroundGrid.png");
     z-index: 0;
     grid-template-columns: 200px 200px 200px 200px;
     display: grid;

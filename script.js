@@ -7,8 +7,6 @@ var boxHeight = 600;
 var puzzleBox;
 var puzzleBoxWidth;
 
-var countCorrectlyPlacedPieces = 0;
-
 var puzzlePieces = [];
 var pieces = 12;
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
@@ -74,16 +72,15 @@ async function pickUpPiece(_clickedID)
         {   
             // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
             heldObject = puzzlePieces[p];
-            document.getElementById("brikkeboks").appendChild(heldObject.obj);
             // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
             heldObject.obj.style.zIndex = "3";
+            // Setter gridden brikken befinner seg på tilbake til ingenting når den plukkes opp slik at den returner false når vi sjekker om alle brikkene er plassert korrekt
             heldObject.setCurrentGridLocation(null);
             //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
             
             if (heldObject.isPlacedOnGrid)
             {
                 heldObject.isPlacedOnGrid = false;
-                heldObject.setPosition(mousePosition.x, mousePosition.y, false);
             } 
             
             heldObject.setOffset(mousePosition.x, mousePosition.y);
@@ -118,8 +115,9 @@ function dropPiece()
 
 function snapPiece(_idVerdi)
 {
-    document.getElementById(_idVerdi).appendChild(heldObject.obj);
-    heldObject.setPosition(0, 0, false); 
+    let rect = document.getElementById(_idVerdi).getBoundingClientRect();
+
+    heldObject.setPosition(rect.left, rect.top, false); 
     heldObject.isPlacedOnGrid = true;
     
     heldObject.setCurrentGridLocation(_idVerdi);
@@ -136,7 +134,7 @@ function snapPiece(_idVerdi)
 
 async function checkAllPieces()
 {
-    countCorrectlyPlacedPieces = 0;
+    let countCorrectlyPlacedPieces = 0;
 
     for (p = 0; p < pieces; p++)
     {
