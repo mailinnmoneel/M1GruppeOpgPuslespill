@@ -67,7 +67,7 @@ function createPlacementGrids()
 
 
 
-async function pickUpPiece(_clickedID)
+async function pickUpPiece(_clickedPieceID)
 {  
 
     if (isHoldingObject || gameOver)
@@ -80,7 +80,7 @@ async function pickUpPiece(_clickedID)
 
     for (p = 0; p < puzzlePieces.length; p++)
     { 
-        if (puzzlePieces[p].obj.id == _clickedID)
+        if (puzzlePieces[p].obj.id == _clickedPieceID)
         {   
             heldObject = puzzlePieces[p];
             heldObject.obj.style.zIndex = numberOfPieces+1;
