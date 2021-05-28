@@ -109,7 +109,7 @@ function findGridElementFromPiece(_heldObject)
 {
     for (g = 0; g < gridElements.length; g++)
     {
-        if (gridElements[g].gridID == _heldObject.currentLocation)
+        if (gridElements[g].gridID == _heldObject.currentGridLocation)
             return gridElements[g].gridID;
     }
 }
