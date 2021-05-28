@@ -6,6 +6,7 @@ class PuzzlePiece
 
         this.x = _x;
         this.y = _y;
+        
         this.isPlacedOnGrid = false;
 
         this.pieceWidth = 200;
