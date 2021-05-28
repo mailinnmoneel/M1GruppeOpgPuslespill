@@ -1,6 +1,6 @@
 class PuzzlePiece
 {  
-    constructor(_id, _plass, _x, _y, _isRandom)
+    constructor(_id, _correctGridLocation, _x, _y, _useRandomSpawnPoint)
     {
         this.obj = document.getElementById(_id);
 
@@ -8,13 +8,13 @@ class PuzzlePiece
         this.y = _y;
         
         this.isPlacedOnGrid = false;
-        this.plass = _plass;
+        this.correctGridLocation = _correctGridLocation;
 
         this.pieceWidth = 200;
         this.pieceHeight = 200;       
 
-        if (_isRandom)
-            this.placeRandom();
+        if (_useRandomSpawnPoint)
+            this.randomizeStartPosition();
         
         this.obj.style.left = getPixels(this.x);
         this.obj.style.top = getPixels(this.y);
@@ -52,7 +52,7 @@ class PuzzlePiece
         this.obj.style.top = getPixels(this.y);
     }
 
-    placeRandom()
+    randomizeStartPosition()
     {  
         let rect = puzzleBox.getBoundingClientRect();
 
@@ -62,7 +62,7 @@ class PuzzlePiece
 
     isPiecePlacedCorrect()
     {
-        if (this.currentGridLocation == this.plass)
+        if (this.currentGridLocation == this.correctGridLocation)
             return true;
         else
             return false;

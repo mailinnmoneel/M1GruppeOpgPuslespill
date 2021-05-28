@@ -1,16 +1,14 @@
 var heldObject;
-var isHoldingObject;
-
-var boxWidth = 800;
-var boxHeight = 600;
-
-var boxBorder = 50;
+var isHoldingObject = false;
 
 var puzzleBox;
-var puzzleBoxWidth;
+var boxWidth = 800;
+var boxHeight = 600;
+var boxBorder = 50;
+
+var numberOfPieces = 12;
 
 var puzzlePieces = [];
-var numberOfPieces = 12;
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
                 "3-1", "3-2", "3-3", "3-4"];
@@ -23,23 +21,17 @@ var gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
 
 
 // Setter opp variabler og henter referanse til elementer
-function init()
+function Awake()
 {
     document.addEventListener('mousemove', getMousePosition, true);
 
     puzzleBox = document.getElementById("brikkeboks");
     puzzleGrid = document.getElementById("brikkebrett");
 
-    // Setter style manuelt i stedet for via CSS. Går ikke an å enkelt hente style width/height om det kun settes in stylesheet
-    puzzleBox.style.width = getPixels(boxWidth);
-    puzzleBox.style.height = getPixels(boxHeight);
    
-    /* Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet */
-
     createPieces();
     createPlacementGrids();
 
-    isHoldingObject = false;
     setInterval(updateItemPos, 10);
 }
 
@@ -55,6 +47,10 @@ function createPieces()
         puzzlePieces.push(newPiece);
     }    
 }
+
+
+
+
 
 function createPlacementGrids()
 {
@@ -79,40 +75,29 @@ async function pickUpPiece(_clickedID)
       
     isHoldingObject = true;
 
-    // Går igjennom alle puslespillbrikkene en etter en
+
     for (p = 0; p < puzzlePieces.length; p++)
-    {    // Helt til vi finner den brikken vi har plukket opp
+    { 
         if (puzzlePieces[p].obj.id == _clickedID)
         {   
-            // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
+
             heldObject = puzzlePieces[p];
-            // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
             heldObject.obj.style.zIndex = "4";
             
             if (heldObject.isPlacedOnGrid)
-            {
-                heldObject.isPlacedOnGrid = false;
-                setGridAsOccupied(findGridElementFromPiece(heldObject), false);
-              
-                // Setter gridden brikken befinner seg på tilbake til ingenting når den plukkes opp slik at den returner false når vi sjekker om alle brikkene er plassert korrekt
+            {                
+                setGridSlotAsOccupied(findGridElementFromPiece(heldObject), false);
                 heldObject.setCurrentGridLocation(null);
+                heldObject.isPlacedOnGrid = false;
             } 
             
-            //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
             heldObject.setOffset(mousePosition.x, mousePosition.y);
         }
     }
 }
 
 
-function findGridElementFromPiece(_heldObject)
-{
-    for (g = 0; g < gridElements.length; g++)
-    {
-        if (gridElements[g].gridID == _heldObject.currentGridLocation)
-            return gridElements[g].gridID;
-    }
-}
+
 
 
 
@@ -122,14 +107,15 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
     heldObject.obj.style.zIndex = 3;
     heldObject.setOffset(0,0); 
+
     checkIfClickedInPlacementGrid();
 
     heldObject = null;
     isHoldingObject = false; 
 }
+
 
 
 
@@ -142,13 +128,13 @@ function snapPiece(_idVerdi)
 
 
     let rect = document.getElementById(_idVerdi).getBoundingClientRect();
-
     heldObject.setPosition(rect.left, rect.top, false); 
+
     heldObject.isPlacedOnGrid = true;
     heldObject.obj.style.zIndex = 2;
     heldObject.setCurrentGridLocation(_idVerdi);
 
-    setGridAsOccupied(_idVerdi, true);
+    setGridSlotAsOccupied(_idVerdi, true);
 
     checkIfPuzzleIsComplete();
 
@@ -156,14 +142,23 @@ function snapPiece(_idVerdi)
     isHoldingObject = false;
 }
 
-function setGridAsOccupied(_gridID, _flag)
+
+
+
+
+
+function setGridSlotAsOccupied(_gridID, _condition)
 {
     for (g = 0; g < gridElements.length; g++)
     {
         if (gridElements[g].gridID == _gridID)            
-                gridElements[g].setOccupied(_flag);
+                gridElements[g].setOccupied(_condition);
     }
 }
+
+
+
+
 
 function checkIfGridIsOccupied(_gridID)
 {
@@ -173,6 +168,20 @@ function checkIfGridIsOccupied(_gridID)
             return gridElements[g].checkIfOccupied();
     }
 }
+
+
+
+
+
+function findGridElementFromPiece(_heldObject)
+{
+    for (g = 0; g < gridElements.length; g++)
+    {
+        if (gridElements[g].gridID == _heldObject.currentGridLocation)
+            return gridElements[g].gridID;
+    }
+}
+
 
 
 
@@ -190,13 +199,7 @@ async function checkIfPuzzleIsComplete()
         }                    
     }
 
-    let aboveOne = '';
-    if (countCorrectlyPlacedPieces > 1)
-        aboveOne = "r";
-
-    console.log("Du har plassert " + countCorrectlyPlacedPieces + " brikke" + aboveOne + " korrekt så langt.");
-
-    if( countCorrectlyPlacedPieces == numberOfPieces)
+    if(countCorrectlyPlacedPieces == numberOfPieces)
     {
         await sleep(50);
         alert("Du vant! (ingenting)");
@@ -230,14 +233,6 @@ function getMousePosition(e)
 
 
 
-
-
-
-
-
-
-
-// Konverterer et tall til pixelverdi som en string
 function getPixels(coord)
 {
     return coord.toString() + "px";
@@ -380,9 +375,7 @@ function updateItemPos()
     if (heldObject == null)
         return;  
 
-    
-    if (heldObject != null)
-        heldObject.setPosition(mousePosition.x, mousePosition.y, true);
+    heldObject.setPosition(mousePosition.x, mousePosition.y, true);
 }
 
 

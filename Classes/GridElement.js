@@ -6,9 +6,9 @@ class GridElement
         this.occupied = false;
     }
 
-    setOccupied(flag)
+    setOccupied(isOccupied)
     {
-        if (flag)
+        if (isOccupied)
             this.occupied = true;
         else
             this.occupied = false;
