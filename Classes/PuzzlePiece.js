@@ -1,8 +1,14 @@
 class PuzzlePiece
-{  
-    constructor(_id, _correctGridLocation, _x, _y, _useRandomSpawnPoint)
-    {
+{   
+    
+
+    constructor(_id, _correctGridLocation, _x, _y, _useRandomSpawnPoint, _zIndex)
+    {   
+        
+        this.pieceId = _zIndex;
+        
         this.obj = document.getElementById(_id);
+        
 
         this.x = _x;
         this.y = _y;
@@ -16,6 +22,7 @@ class PuzzlePiece
         if (_useRandomSpawnPoint)
             this.randomizeStartPosition();
         
+        this.obj.style.zIndex = this.pieceId;
         this.obj.style.left = getPixels(this.x);
         this.obj.style.top = getPixels(this.y);
             

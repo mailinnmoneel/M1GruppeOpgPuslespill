@@ -8,6 +8,8 @@ var boxBorder = 50;
 
 var numberOfPieces = 12;
 
+var gameOver = false;
+
 var puzzlePieces = [];
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
@@ -27,7 +29,6 @@ function Awake()
 
     puzzleBox = document.getElementById("brikkeboks");
     puzzleGrid = document.getElementById("brikkebrett");
-
    
     createPieces();
     createPlacementGrids();
@@ -43,7 +44,7 @@ function createPieces()
 {
     for (p = 0; p < numberOfPieces; p++)
     {
-        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true);
+        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true, p+1);        
         puzzlePieces.push(newPiece);
     }    
 }
@@ -68,7 +69,7 @@ function createPlacementGrids()
 async function pickUpPiece(_clickedID)
 {  
 
-    if (isHoldingObject)
+    if (isHoldingObject || gameOver)
         return;
 
     await sleep(20); // Uten denne ender dropPiece og pickUpPiece med kjøre på samme museklikk.
@@ -82,7 +83,7 @@ async function pickUpPiece(_clickedID)
         {   
 
             heldObject = puzzlePieces[p];
-            heldObject.obj.style.zIndex = "4";
+            heldObject.obj.style.zIndex = numberOfPieces+1;
             
             if (heldObject.isPlacedOnGrid)
             {                
@@ -107,7 +108,7 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    heldObject.obj.style.zIndex = 3;
+    sortPiecesByzIndex(heldObject.obj.style.zIndex);
     heldObject.setOffset(0,0); 
 
     checkIfClickedInPlacementGrid();
@@ -202,6 +203,7 @@ async function checkIfPuzzleIsComplete()
     if(countCorrectlyPlacedPieces == numberOfPieces)
     {
         await sleep(50);
+        gameOver = true;
         alert("Du vant! (ingenting)");
     }
 }
@@ -214,6 +216,7 @@ function resetPuzzle()
 {
     for (i = 0; i < numberOfPieces; i++)
     {
+        gameOver = false;
         gridElements[i].resetElement();
         puzzlePieces[i].resetPiece();
     }
