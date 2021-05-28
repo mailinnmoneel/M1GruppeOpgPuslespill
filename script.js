@@ -111,11 +111,13 @@ function dropPiece()
 
     heldObject.setOffset(0,0); 
 
+    checkIfClickedByPixelRounding();
     checkIfClickedInPlacementGrid();
 
     heldObject = null;
     isHoldingObject = false; 
 }
+
 
 
 function sortPiecesByzIndex(_indexOfDroppedPiece, _heldObject)
@@ -283,7 +285,19 @@ Forslag: Regne ut rute ved å runde ned museposisjon til nærmeste 200px for X o
 Theodor og Morten ser på det i helga
 
 */
+/********EXPERIMENTAL***********/
+function checkIfClickedByPixelRounding()
+{
+    let rect = puzzleGrid.getBoundingClientRect();
 
+    let relativeMouseX = mousePosition.x - rect.left;
+    let relativeMouseY = mousePosition.y - rect.top;
+
+    console.log("X Pos: " + Math.floor(relativeMouseX / 200));
+    console.log("Y Pos: " + Math.floor(relativeMouseY / 200));
+
+}
+/***********************/
 
 function checkIfClickedInPlacementGrid()
 {
