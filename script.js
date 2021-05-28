@@ -123,7 +123,7 @@ function dropPiece()
         return;   
     
     // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
-    heldObject.obj.style.zIndex = "3";
+    heldObject.obj.style.zIndex = 3;
     heldObject.setOffset(0,0); 
     checkIfClickedInPlacementGrid();
 
@@ -179,13 +179,22 @@ function checkIfGridIsOccupied(_gridID)
 
 async function checkIfPuzzleIsComplete()
 {
+    
     let countCorrectlyPlacedPieces = 0;
 
     for (p = 0; p < puzzlePieces.length; p++)
-    {
+    {       
         if (puzzlePieces[p].isPiecePlacedCorrect())
+        {
             countCorrectlyPlacedPieces += 1;
+        }                    
     }
+
+    let aboveOne = '';
+    if (countCorrectlyPlacedPieces > 1)
+        aboveOne = "r";
+
+    console.log("Du har plassert " + countCorrectlyPlacedPieces + " brikke" + aboveOne + " korrekt så langt.");
 
     if( countCorrectlyPlacedPieces == numberOfPieces)
     {

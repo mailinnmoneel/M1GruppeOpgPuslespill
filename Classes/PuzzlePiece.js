@@ -62,7 +62,7 @@ class PuzzlePiece
 
     isPiecePlacedCorrect()
     {
-        if (this.currentLocation == this.plass)
+        if (this.currentGridLocation == this.plass)
             return true;
         else
             return false;
