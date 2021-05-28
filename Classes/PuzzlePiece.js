@@ -41,7 +41,7 @@ class PuzzlePiece
         this.updatePosition();
     }
 
-    setCurrentLocation(_location)
+    setCurrentGridLocation(_location)
     {
         this.currentLocation = _location;
     }

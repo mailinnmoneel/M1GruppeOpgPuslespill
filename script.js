@@ -77,6 +77,7 @@ async function pickUpPiece(_clickedID)
             document.getElementById("brikkeboks").appendChild(heldObject.obj);
             // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
             heldObject.obj.style.zIndex = "3";
+            heldObject.setCurrentGridLocation(null);
             //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
             
             if (heldObject.isPlacedOnGrid)
@@ -121,12 +122,15 @@ function snapPiece(_idVerdi)
     heldObject.setPosition(0, 0, false); 
     heldObject.isPlacedOnGrid = true;
     
-    heldObject.setCurrentLocation(_idVerdi);
+    heldObject.setCurrentGridLocation(_idVerdi);
     checkAllPieces();    
 
     heldObject = null;  
     isHoldingObject = false;
 }
+
+
+
 
 
 
