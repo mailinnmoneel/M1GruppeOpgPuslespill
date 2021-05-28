@@ -88,17 +88,17 @@ async function pickUpPiece(_clickedID)
             heldObject = puzzlePieces[p];
             // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
             heldObject.obj.style.zIndex = "4";
-            // Setter gridden brikken befinner seg på tilbake til ingenting når den plukkes opp slik at den returner false når vi sjekker om alle brikkene er plassert korrekt
-            
-            //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
             
             if (heldObject.isPlacedOnGrid)
             {
                 heldObject.isPlacedOnGrid = false;
                 setGridAsOccupied(findGridElementFromPiece(heldObject), false);
+              
+                // Setter gridden brikken befinner seg på tilbake til ingenting når den plukkes opp slik at den returner false når vi sjekker om alle brikkene er plassert korrekt
                 heldObject.setCurrentGridLocation(null);
             } 
-
+            
+            //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
             heldObject.setOffset(mousePosition.x, mousePosition.y);
         }
     }
