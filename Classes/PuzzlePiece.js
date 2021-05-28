@@ -1,7 +1,7 @@
 class PuzzlePiece
 {    
 
-    constructor(_id, _correctGridLocation, _x, _y, _useRandomSpawnPoint)
+    constructor(_id, _correctGridLocation, _x, _y, _hasRandomSpawnPoint)
     {   
 
         this.obj = document.getElementById(_id);        
@@ -15,7 +15,7 @@ class PuzzlePiece
         this.isPlacedOnGrid = false;
         this.correctGridLocation = _correctGridLocation;
 
-        if (_useRandomSpawnPoint)
+        if (_hasRandomSpawnPoint)
             this.randomizeStartPosition();
         
         this.obj.style.left = getPixels(this.x);
@@ -49,9 +49,9 @@ class PuzzlePiece
         this.obj.style.zIndex = this.zIndex;
     }
 
-    setCurrentGridLocation(_location)
+    setCurrentGridLocation(_newGridLocation)
     {
-        this.currentGridLocation = _location;
+        this.currentGridLocation = _newGridLocation;
     }
 
     updatePosition()

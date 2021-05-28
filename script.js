@@ -108,7 +108,7 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    sortPiecesByzIndex(heldObject.zIndex, heldObject);
+    sortPiecesByZIndex(heldObject.zIndex, heldObject);
 
     heldObject.setOffset(0,0); 
 
@@ -123,11 +123,11 @@ function dropPiece()
 
 
 
-function sortPiecesByzIndex(_indexOfDroppedPiece, _heldObject)
+function sortPiecesByZIndex(_zIndexOfDroppedPiece, _heldObject)
 {
     for (p = 0; p < puzzlePieces.length; p++)
     {
-        if (puzzlePieces[p].zIndex > _indexOfDroppedPiece && puzzlePieces[p].isPlacedOnGrid == false)
+        if (puzzlePieces[p].zIndex > _zIndexOfDroppedPiece && puzzlePieces[p].isPlacedOnGrid == false)
         {            
             if (puzzlePieces[p].zIndex > 1)
             {
@@ -143,26 +143,24 @@ function sortPiecesByzIndex(_indexOfDroppedPiece, _heldObject)
 
 
 
-function snapPiece(_idVerdi)
+function snapPiece(_idOfGridElementToSnapTo)
 {
-    if (checkIfGridIsOccupied(_idVerdi))
+    if (checkIfGridIsOccupied(_idOfGridElementToSnapTo))
         return;
 
 
-    let rect = document.getElementById(_idVerdi).getBoundingClientRect();
+    let rect = document.getElementById(_idOfGridElementToSnapTo).getBoundingClientRect();
     heldObject.setPosition(rect.left, rect.top, false); 
+    heldObject.setDrawDepth(0);
+    heldObject.setCurrentGridLocation(_idOfGridElementToSnapTo);
 
-    heldObject.isPlacedOnGrid = true;
-    heldObject.obj.style.zIndex = 0;
-    heldObject.zIndex = 0;
-    heldObject.setCurrentGridLocation(_idVerdi);
+    setGridSlotAsOccupied(_idOfGridElementToSnapTo, true);
 
-    setGridSlotAsOccupied(_idVerdi, true);
-
-    checkIfPuzzleIsComplete();
-
+    heldObject.isPlacedOnGrid = true;       
     heldObject = null;  
     isHoldingObject = false;
+
+    checkIfPuzzleIsComplete();
 }
 
 
@@ -170,12 +168,12 @@ function snapPiece(_idVerdi)
 
 
 
-function setGridSlotAsOccupied(_gridID, _condition)
+function setGridSlotAsOccupied(_gridID, _isOccupied)
 {
     for (g = 0; g < gridElements.length; g++)
     {
         if (gridElements[g].gridID == _gridID)            
-                gridElements[g].setOccupied(_condition);
+                gridElements[g].setOccupied(_isOccupied);
     }
 }
 
