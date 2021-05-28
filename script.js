@@ -29,57 +29,11 @@ function init()
    
     /* Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet */
 
-    // let _1_1;
-    // let _1_2;
-    // let _1_3;
-    // let _1_4;
-
-    // let _2_1;
-    // let _2_2;
-    // let _2_3;
-    // let _2_4;
-
-    // let _3_1;
-    // let _3_2;
-    // let _3_3;
-    // let _3_4;
-
-    // _1_1 = new PuzzlePiece("1-1", 100, 50, true);
-    // _1_2 = new PuzzlePiece("1-2", 320, 50, true);
-    // _1_3 = new PuzzlePiece("1-3", 320, 50, true);
-    // _1_4 = new PuzzlePiece("1-4", 320, 50, true);
-    
-    // _2_1 = new PuzzlePiece("2-1", 100, 50, true);
-    // _2_2 = new PuzzlePiece("2-2", 320, 50, true);
-    // _2_3 = new PuzzlePiece("2-3", 320, 50, true);
-    // _2_4 = new PuzzlePiece("2-4", 320, 50, true);
-
-    // _3_1 = new PuzzlePiece("3-1", 100, 50, true);
-    // _3_2 = new PuzzlePiece("3-2", 320, 50, true);
-    // _3_3 = new PuzzlePiece("3-3", 320, 50, true);
-    // _3_4 = new PuzzlePiece("3-4", 320, 50, true);
-    
-    // puzzlePieces.push(_1_1);
-    // puzzlePieces.push(_1_2);
-    // puzzlePieces.push(_1_3);
-    // puzzlePieces.push(_1_4);
-    
-    // puzzlePieces.push(_2_1);
-    // puzzlePieces.push(_2_2);
-    // puzzlePieces.push(_2_3);
-    // puzzlePieces.push(_2_4);
-    
-    // puzzlePieces.push(_3_1);
-    // puzzlePieces.push(_3_2);
-    // puzzlePieces.push(_3_3);
-    // puzzlePieces.push(_3_4);
-
     createPieces();
 
     isHoldingObject = false;
     setInterval(updateItemPos, 10);
 }
-
 
 
 
@@ -94,29 +48,58 @@ function createPieces()
     }    
 }
 
-/*****************/
-/*  Eksperiment  */
-/*****************/
+
+
 function checkIfClickedInPlacementGrid()
 {
     let rect = puzzleGrid.getBoundingClientRect();
+    //let gridWidth = boxWidth / 4;
+    //let gridHeight = boxHeight / 3;
 
-    if( mousePosition.x > rect.left &&
-        mousePosition.x < rect.left + (boxWidth / 4) &&
-        mousePosition.y > rect.top &&
-        mousePosition.y < rect.top + (boxHeight / 3))
-    {
-        document.getElementById("plass_1_1").appendChild(heldObject.obj);
-        heldObject.setPosition(0, 0, false); 
-        heldObject.isPlacedOnGrid = true;
+    console.log(rect.left, rect.right, rect.top, rect.bottom);
 
-        heldObject = null;        
-        isHoldingObject = false; 
-    }
+    if      (   mousePosition.x > rect.left &&
+                mousePosition.x < rect.left + 200 &&
+                mousePosition.y > rect.top &&
+                mousePosition.y < rect.top + 200)
+            {
+                snapPiece("plass_1_1");
+            }
+    else if(    mousePosition.x > rect.left + 200 &&
+                mousePosition.x < rect.left + 400 &&
+                mousePosition.y > rect.top &&
+                mousePosition.y < rect.top + 200)
+            {
+                snapPiece("plass_1_2");
+            }
+    else if (   mousePosition.x > rect.left +  400 &&
+                mousePosition.x < rect.left +  600 &&
+                mousePosition.y > rect.top &&
+                mousePosition.y < rect.top + 200 )
+    
+            {
+                snapPiece("plass_1_3");
+            }
+    else if (   mousePosition.x > rect.left +  600 &&
+                mousePosition.x < rect.left +  800 &&
+                mousePosition.y > rect.top &&
+                mousePosition.y < rect.top + 200 )
+    
+            {
+                snapPiece("plass_1_4");
+            }          
 }
-/****************/
-/****************/
-/****************/
+
+
+function snapPiece(_idVerdi)
+{
+    document.getElementById(_idVerdi).appendChild(heldObject.obj);
+    heldObject.setPosition(0, 0, false); 
+    heldObject.isPlacedOnGrid = true;
+
+    heldObject = null;  
+    isHoldingObject = false;
+}
 
 
 
@@ -165,7 +148,6 @@ async function pickUpPiece(_clickedID)
                 console.log("Plukket opp brikke nummer " + heldObject.obj.id);
             }
         }
-    // }
 }
 
 
