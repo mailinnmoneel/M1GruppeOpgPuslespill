@@ -1,23 +1,21 @@
 class GridElement
 {
-    constructor()
+    constructor(_gridID)
     {
-
-    }
-
-    placedPiece()
-    {
-        this.occupied = true;
-    }
-
-    takenPiece()
-    {
+        this.gridID = _gridID;
         this.occupied = false;
+    }
+
+    setOccupied(flag)
+    {
+        if (flag)
+            this.occupied = true;
+        else
+            this.occupied = false;
     }
 
     checkIfOccupied()
     {
-        if (this.occupied)
-            return false;
+        return this.occupied;
     }
 }

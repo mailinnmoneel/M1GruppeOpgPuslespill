@@ -14,6 +14,8 @@ var pieces = 12;
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
                 "3-1", "3-2", "3-3", "3-4"];
+
+var gridElements = [];
 var gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
                "plass_2_1", "plass_2_2", "plass_2_3", "plass_2_4",
                "plass_3_1", "plass_3_2", "plass_3_3", "plass_3_4"];
@@ -35,6 +37,7 @@ function init()
     /* Lager en ny versjon av "PuzzlePiece" til hver brikke og gir en ID, posisjon og velger om de skal ha en tilfeldig plassering på brettet */
 
     createPieces();
+    createPlacementGrids();
 
     isHoldingObject = false;
     setInterval(updateItemPos, 10);
@@ -51,6 +54,15 @@ function createPieces()
         let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true);
         puzzlePieces.push(newPiece);
     }    
+}
+
+function createPlacementGrids()
+{
+    for (p = 0; p < pieces; p++)
+    {
+        let newGridElement = new GridElement(gridIDs[p]);
+        gridElements.push(newGridElement);
+    }
 }
 
 
@@ -77,21 +89,30 @@ async function pickUpPiece(_clickedID)
             // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
             heldObject.obj.style.zIndex = "3";
             // Setter gridden brikken befinner seg på tilbake til ingenting når den plukkes opp slik at den returner false når vi sjekker om alle brikkene er plassert korrekt
-            heldObject.setCurrentGridLocation(null);
+            
             //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
             
             if (heldObject.isPlacedOnGrid)
             {
                 heldObject.isPlacedOnGrid = false;
+                setGridAsOccupied(findGridElementFromPiece(heldObject), false);
+                heldObject.setCurrentGridLocation(null);
             } 
-            
+
             heldObject.setOffset(mousePosition.x, mousePosition.y);
-            console.log("Plukket opp brikke nummer " + heldObject.obj.id);
         }
     }
 }
 
 
+function findGridElementFromPiece(_heldObject)
+{
+    for (g = 0; g < gridElements.length; g++)
+    {
+        if (gridElements[g].gridID == _heldObject.currentLocation)
+            return gridElements[g].gridID;
+    }
+}
 
 
 
@@ -101,7 +122,6 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    console.log("La ned brikke nummer " + heldObject.obj.id);
     // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
     heldObject.obj.style.zIndex = "2";
     heldObject.setOffset(0,0); 
@@ -117,24 +137,46 @@ function dropPiece()
 
 function snapPiece(_idVerdi)
 {
+    if (checkIfGridIsOccupied(_idVerdi))
+        return;
+
+
     let rect = document.getElementById(_idVerdi).getBoundingClientRect();
 
     heldObject.setPosition(rect.left, rect.top, false); 
     heldObject.isPlacedOnGrid = true;
-    
     heldObject.setCurrentGridLocation(_idVerdi);
-    checkAllPieces();    
+
+    setGridAsOccupied(_idVerdi, true);
+
+    checkIfPuzzleIsComplete();
 
     heldObject = null;  
     isHoldingObject = false;
 }
 
+function setGridAsOccupied(_gridID, _flag)
+{
+    for (g = 0; g < gridElements.length; g++)
+    {
+        if (gridElements[g].gridID == _gridID)            
+                gridElements[g].setOccupied(_flag);
+    }
+}
+
+function checkIfGridIsOccupied(_gridID)
+{
+    for (g = 0; g < gridElements.length; g++)
+    {
+        if (gridElements[g].gridID == _gridID)            
+            return gridElements[g].checkIfOccupied();
+    }
+}
 
 
 
 
-
-async function checkAllPieces()
+async function checkIfPuzzleIsComplete()
 {
     let countCorrectlyPlacedPieces = 0;
 
@@ -196,7 +238,11 @@ function getPixels(coord)
 
 
 
+/*
 
+Forslag: Regne ut rute ved å runde ned museposisjon til nærmeste 200px for X og Y, og så sette posisjon basert på det.
+
+*/
 
 
 function checkIfClickedInPlacementGrid()
@@ -204,8 +250,6 @@ function checkIfClickedInPlacementGrid()
     let rect = puzzleGrid.getBoundingClientRect();
     //let gridWidth = boxWidth / 4;
     //let gridHeight = boxHeight / 3;
-
-    console.log(rect.left, rect.right, rect.top, rect.bottom);
     
     if      (   mousePosition.y > rect.top &&
                 mousePosition.y < rect.top + 200 )
@@ -304,6 +348,9 @@ function checkRow3(leftPos)
             snapPiece("plass_3_4");
         }    
 }
+
+
+
 
 
 
