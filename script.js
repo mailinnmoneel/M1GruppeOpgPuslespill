@@ -110,9 +110,7 @@ function dropPiece()
     
     sortPiecesByZIndex(heldObject.zIndex, heldObject);
 
-    heldObject.setOffset(0,0); 
-
-    checkIfClickedByPixelRounding();
+    checkIfClickedByPixelRounding(); // <-- Ny funksjon basert på Theodor sin ide for å runde ned pixelverdier.
     checkIfClickedInPlacementGrid();
 
     heldObject = null;
@@ -235,10 +233,10 @@ async function checkIfPuzzleIsComplete()
 function resetPuzzle()
 {
     for (i = 0; i < numberOfPieces; i++)
-    {
-        gameOver = false;
+    {        
         gridElements[i].resetElement();
         puzzlePieces[i].resetPiece();
+        gameOver = false;
     }
 }
 
