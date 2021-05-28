@@ -10,7 +10,7 @@ var puzzleBox;
 var puzzleBoxWidth;
 
 var puzzlePieces = [];
-var pieces = 12;
+var numberOfPieces = 12;
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
                 "3-1", "3-2", "3-3", "3-4"];
@@ -49,7 +49,7 @@ function init()
 
 function createPieces()
 {
-    for (p = 0; p < pieces; p++)
+    for (p = 0; p < numberOfPieces; p++)
     {
         let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true);
         puzzlePieces.push(newPiece);
@@ -58,7 +58,7 @@ function createPieces()
 
 function createPlacementGrids()
 {
-    for (p = 0; p < pieces; p++)
+    for (p = 0; p < numberOfPieces; p++)
     {
         let newGridElement = new GridElement(gridIDs[p]);
         gridElements.push(newGridElement);
@@ -181,13 +181,13 @@ async function checkIfPuzzleIsComplete()
 {
     let countCorrectlyPlacedPieces = 0;
 
-    for (p = 0; p < pieces; p++)
+    for (p = 0; p < puzzlePieces.length; p++)
     {
         if (puzzlePieces[p].isPiecePlacedCorrect())
             countCorrectlyPlacedPieces += 1;
     }
 
-    if( countCorrectlyPlacedPieces == 12)
+    if( countCorrectlyPlacedPieces == numberOfPieces)
     {
         await sleep(50);
         alert("Du vant! (ingenting)");
