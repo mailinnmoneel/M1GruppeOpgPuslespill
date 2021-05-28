@@ -87,7 +87,7 @@ async function pickUpPiece(_clickedID)
             // setter heldObject til den brikken vi plukket opp så vi kan gjøre endringer på den
             heldObject = puzzlePieces[p];
             // Og endrer dybde på style-elementet så brikken vi holder ligger over alle de andre brikkene
-            heldObject.obj.style.zIndex = "3";
+            heldObject.obj.style.zIndex = "4";
             // Setter gridden brikken befinner seg på tilbake til ingenting når den plukkes opp slik at den returner false når vi sjekker om alle brikkene er plassert korrekt
             
             //Og vi regner så ut hvor på brikken vi har trykket så vi kan posisjonere den korrekt på musepekeren
@@ -123,7 +123,7 @@ function dropPiece()
         return;   
     
     // Endrer style-dybde tilbake til samme som de andre brikkene slik at nye brikker vi plukker opp vil ligge på toppen
-    heldObject.obj.style.zIndex = "2";
+    heldObject.obj.style.zIndex = "3";
     heldObject.setOffset(0,0); 
     checkIfClickedInPlacementGrid();
 
@@ -145,6 +145,7 @@ function snapPiece(_idVerdi)
 
     heldObject.setPosition(rect.left, rect.top, false); 
     heldObject.isPlacedOnGrid = true;
+    heldObject.obj.style.zIndex = 2;
     heldObject.setCurrentGridLocation(_idVerdi);
 
     setGridAsOccupied(_idVerdi, true);
