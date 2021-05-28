@@ -41,6 +41,11 @@ class PuzzlePiece
         this.updatePosition();
     }
 
+    setCurrentLocation(_location)
+    {
+        this.currentLocation = _location;
+    }
+
     updatePosition()
     {
         this.obj.style.left = getPixels(this.x);
@@ -53,5 +58,13 @@ class PuzzlePiece
 
         this.x = rect.left + (Math.random() * ((rect.right-rect.left) - this.pieceWidth));
         this.y = rect.top + (Math.random() * ((rect.bottom-rect.top) - this.pieceHeight));
+    }
+
+    isPiecePlacedCorrect()
+    {
+        if (this.currentLocation == this.plass)
+            return true;
+        else
+            return false;
     }
 }

@@ -7,6 +7,8 @@ var boxHeight = 600;
 var puzzleBox;
 var puzzleBoxWidth;
 
+var countCorrectlyPlacedPieces = 0;
+
 var puzzlePieces = [];
 var pieces = 12;
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
@@ -118,6 +120,9 @@ function snapPiece(_idVerdi)
     document.getElementById(_idVerdi).appendChild(heldObject.obj);
     heldObject.setPosition(0, 0, false); 
     heldObject.isPlacedOnGrid = true;
+    
+    heldObject.setCurrentLocation(_idVerdi);
+    checkAllPieces();    
 
     heldObject = null;  
     isHoldingObject = false;
@@ -125,7 +130,22 @@ function snapPiece(_idVerdi)
 
 
 
+async function checkAllPieces()
+{
+    countCorrectlyPlacedPieces = 0;
 
+    for (p = 0; p < pieces; p++)
+    {
+        if (puzzlePieces[p].isPiecePlacedCorrect())
+            countCorrectlyPlacedPieces += 1;
+    }
+
+    if( countCorrectlyPlacedPieces == 12)
+    {
+        await sleep(50);
+        alert("Du vant! (ingenting)");
+    }
+}
 
 
 
