@@ -75,7 +75,7 @@ async function pickUpPiece(_clickedID)
     if (isHoldingObject)
         return;
 
-    await sleep(20); // Uten denne blir bildet puttet ned igjen med en gang det plukkes opp siden dropPiece funksjonen aktiverer på samme museklikk
+    await sleep(20); // Uten denne ender dropPiece og pickUpPiece med kjøre på samme museklikk.
       
     isHoldingObject = true;
 
