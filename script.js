@@ -21,8 +21,7 @@ var gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
                "plass_3_1", "plass_3_2", "plass_3_3", "plass_3_4"];
 
 
-
-// Setter opp variabler og henter referanse til elementer
+// Kjøres når siden laster
 function Awake()
 {
     document.addEventListener('mousemove', getMousePosition, true);
@@ -235,6 +234,8 @@ async function checkIfPuzzleIsComplete()
 
 
 
+
+
 function resetPuzzle()
 {
     for (i = 0; i < numberOfPieces; i++)
@@ -417,9 +418,6 @@ function checkRow3(leftPos)
 
 
 
-
-
-
 // Flytter brikken vi holder etter musepekeren
 function updateItemPos()
 {
@@ -431,6 +429,8 @@ function updateItemPos()
 
 
 
+
+
 function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -438,14 +438,8 @@ function sleep(ms)
 
 
 
-// Bug når man scroller nedover på siden.
-// Mulig posisjon på musepekeren ikke oppdaterer seg korrekt så vi får ikke satt korrekt offset på brikken når den plukkes opp
-
 function recheckPiecePositions()   
 {
-    let _y = window.scrollY;
-    console.log(_y);
-
     for (p = 0; p < puzzlePieces.length; p++)
     {
         if (puzzlePieces[p].isPlacedOnGrid)
