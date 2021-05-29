@@ -4,7 +4,7 @@ class PuzzlePiece
     constructor(_id, _correctGridLocation, _x, _y, _hasRandomSpawnPoint)
     {   
 
-        this.obj = document.getElementById(_id);        
+        this.element = document.getElementById(_id);        
 
         this.x = _x;
         this.y = _y;
@@ -18,8 +18,8 @@ class PuzzlePiece
         if (_hasRandomSpawnPoint)
             this.randomizeStartPosition();
         
-        this.obj.style.left = getPixels(this.x);
-        this.obj.style.top = getPixels(this.y);
+        this.element.style.left = getPixels(this.x);
+        this.element.style.top = getPixels(this.y);
             
     }
 
@@ -46,7 +46,7 @@ class PuzzlePiece
     setDrawDepth(_newIndex)
     {
         this.zIndex = _newIndex;
-        this.obj.style.zIndex = this.zIndex;
+        this.element.style.zIndex = this.zIndex;
     }
 
     setCurrentGridLocation(_newGridLocation)
@@ -56,8 +56,8 @@ class PuzzlePiece
 
     updatePosition()
     {
-        this.obj.style.left = getPixels(this.x);
-        this.obj.style.top = getPixels(this.y);
+        this.element.style.left = getPixels(this.x);
+        this.element.style.top = getPixels(this.y);
     }
 
     randomizeStartPosition()
@@ -65,7 +65,7 @@ class PuzzlePiece
         let rect = puzzleBox.getBoundingClientRect();
 
         this.x = rect.left + boxBorder + (Math.random() * ((rect.right-rect.left) - (this.pieceWidth + boxBorder * 2)));
-        this.y = rect.top + boxBorder + (Math.random() * ((rect.bottom-rect.top) - (this.pieceHeight + boxBorder * 2)));
+        this.y = rect.top + boxBorder + window.scrollY + (Math.random() * ((rect.bottom-rect.top) - (this.pieceHeight + boxBorder * 2)));
     }
 
     isPiecePlacedCorrectly()

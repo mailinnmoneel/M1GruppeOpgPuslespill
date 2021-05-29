@@ -40,14 +40,14 @@
 .eske{
     background-repeat: no-repeat;
     background-position: right 5px top 5px;
-    background-image: url("/img/backgroundBox.png");
+    background-image: url("./img/backgroundBox.png");
     z-index: -1;
 }
 
 .bakgrunn{
     background-repeat: no-repeat;
     background-position: right 5px top 5px;
-    background-image: url("/img/cardboardBackground.png");
+    background-image: url("./img/cardboardBackground.png");
     z-index: -1;
 }
 

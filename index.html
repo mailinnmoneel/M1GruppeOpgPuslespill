@@ -9,11 +9,11 @@
 
         <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
-        <script src="/Classes/PuzzlePiece.js"></script>
-        <script src="/Classes/GridElement.js"></script>
+        <script src="./Classes/PuzzlePiece.js"></script>
+        <script src="./Classes/GridElement.js"></script>
     </head>
 
-    <body onload="Awake()">
+    <body onload="Awake()" onresize="recheckPiecePositions()">
 
         <div class="center"><h1>Sommerfugl puslespill</h1></div>
         
@@ -21,20 +21,20 @@
 
             <div id="brikkeboks" class="brett eske" onclick="dropPiece()">
 
-                <img id="1-1" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-1.png" alt="Brikke 1-1" width="200px" height="200px">
-                <img id="1-2" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-2.png" alt="Brikke 1-2" width="200px" height="200px">
-                <img id="1-3" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-3.png" alt="Brikke 1-3" width="200px" height="200px">
-                <img id="1-4" class="brikke" onclick="pickUpPiece(this.id)" src="/img/1-4.png" alt="Brikke 1-4" width="200px" height="200px">
+                <img id="1-1" class="brikke" onclick="pickUpPiece(this.id)" src="./img/1-1.png" alt="Brikke 1-1" width="200px" height="200px">
+                <img id="1-2" class="brikke" onclick="pickUpPiece(this.id)" src="./img/1-2.png" alt="Brikke 1-2" width="200px" height="200px">
+                <img id="1-3" class="brikke" onclick="pickUpPiece(this.id)" src="./img/1-3.png" alt="Brikke 1-3" width="200px" height="200px">
+                <img id="1-4" class="brikke" onclick="pickUpPiece(this.id)" src="./img/1-4.png" alt="Brikke 1-4" width="200px" height="200px">
     
-                <img id="2-1" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-1.png" alt="Brikke 2-1" width="200px" height="200px">
-                <img id="2-2" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-2.png" alt="Brikke 2-2" width="200px" height="200px">
-                <img id="2-3" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-3.png" alt="Brikke 2-3" width="200px" height="200px">
-                <img id="2-4" class="brikke" onclick="pickUpPiece(this.id)" src="/img/2-4.png" alt="Brikke 2-4" width="200px" height="200px">
+                <img id="2-1" class="brikke" onclick="pickUpPiece(this.id)" src="./img/2-1.png" alt="Brikke 2-1" width="200px" height="200px">
+                <img id="2-2" class="brikke" onclick="pickUpPiece(this.id)" src="./img/2-2.png" alt="Brikke 2-2" width="200px" height="200px">
+                <img id="2-3" class="brikke" onclick="pickUpPiece(this.id)" src="./img/2-3.png" alt="Brikke 2-3" width="200px" height="200px">
+                <img id="2-4" class="brikke" onclick="pickUpPiece(this.id)" src="./img/2-4.png" alt="Brikke 2-4" width="200px" height="200px">
     
-                <img id="3-1" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-1.png" alt="Brikke 3-1" width="200px" height="200px">
-                <img id="3-2" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-2.png" alt="Brikke 3-2" width="200px" height="200px">
-                <img id="3-3" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-3.png" alt="Brikke 3-3" width="200px" height="200px">
-                <img id="3-4" class="brikke" onclick="pickUpPiece(this.id)" src="/img/3-4.png" alt="Brikke 3-4" width="200px" height="200px">
+                <img id="3-1" class="brikke" onclick="pickUpPiece(this.id)" src="./img/3-1.png" alt="Brikke 3-1" width="200px" height="200px">
+                <img id="3-2" class="brikke" onclick="pickUpPiece(this.id)" src="./img/3-2.png" alt="Brikke 3-2" width="200px" height="200px">
+                <img id="3-3" class="brikke" onclick="pickUpPiece(this.id)" src="./img/3-3.png" alt="Brikke 3-3" width="200px" height="200px">
+                <img id="3-4" class="brikke" onclick="pickUpPiece(this.id)" src="./img/3-4.png" alt="Brikke 3-4" width="200px" height="200px">
                 
             </div>
 

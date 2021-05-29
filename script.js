@@ -80,10 +80,10 @@ async function pickUpPiece(_clickedPieceID)
 
     for (p = 0; p < puzzlePieces.length; p++)
     { 
-        if (puzzlePieces[p].obj.id == _clickedPieceID)
+        if (puzzlePieces[p].element.id == _clickedPieceID)
         {   
             heldObject = puzzlePieces[p];
-            heldObject.obj.style.zIndex = numberOfPieces+1;
+            heldObject.element.style.zIndex = numberOfPieces+1;
             
             if (heldObject.isPlacedOnGrid)
             {                
@@ -92,7 +92,7 @@ async function pickUpPiece(_clickedPieceID)
                 heldObject.isPlacedOnGrid = false;
             } 
             
-            heldObject.setOffset(mousePosition.x, mousePosition.y);
+            heldObject.setOffset(mousePosition.x, mousePosition.y + window.scrollY);
         }
     }
 }
@@ -148,7 +148,12 @@ function snapPiece(_idOfGridElementToSnapTo)
 
 
     let rect = document.getElementById(_idOfGridElementToSnapTo).getBoundingClientRect();
-    heldObject.setPosition(rect.left, rect.top, false); 
+
+    
+    // La til scrollY her.
+    heldObject.setPosition(rect.left, rect.top + window.scrollY, false); 
+
+
     heldObject.setDrawDepth(0);
     heldObject.setCurrentGridLocation(_idOfGridElementToSnapTo);
 
@@ -208,17 +213,17 @@ function findGridElementFromPiece(_heldObject)
 async function checkIfPuzzleIsComplete()
 {
     
-    let countCorrectlyPlacedPieces = 0;
+    let numberOfCorrectlyPlacedPieces = 0;
 
     for (p = 0; p < puzzlePieces.length; p++)
     {       
         if (puzzlePieces[p].isPiecePlacedCorrectly())
         {
-            countCorrectlyPlacedPieces += 1;
+            numberOfCorrectlyPlacedPieces++;
         }                    
     }
 
-    if(countCorrectlyPlacedPieces == numberOfPieces)
+    if(numberOfCorrectlyPlacedPieces == numberOfPieces)
     {
         await sleep(50);
         gameOver = true;
@@ -235,9 +240,10 @@ function resetPuzzle()
     for (i = 0; i < numberOfPieces; i++)
     {        
         gridElements[i].resetElement();
-        puzzlePieces[i].resetPiece();
-        gameOver = false;
+        puzzlePieces[i].resetPiece();        
     }
+
+    gameOver = false;
 }
 
 
@@ -420,7 +426,7 @@ function updateItemPos()
     if (heldObject == null)
         return;  
 
-    heldObject.setPosition(mousePosition.x, mousePosition.y, true);
+    heldObject.setPosition(mousePosition.x, mousePosition.y + window.scrollY, true);
 }
 
 
@@ -428,4 +434,24 @@ function updateItemPos()
 function sleep(ms)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
+// Bug når man scroller nedover på siden.
+// Mulig posisjon på musepekeren ikke oppdaterer seg korrekt så vi får ikke satt korrekt offset på brikken når den plukkes opp
+
+function recheckPiecePositions()   
+{
+    let _y = window.scrollY;
+    console.log(_y);
+
+    for (p = 0; p < puzzlePieces.length; p++)
+    {
+        if (puzzlePieces[p].isPlacedOnGrid)
+        {
+            let rect = document.getElementById(findGridElementFromPiece(puzzlePieces[p])).getBoundingClientRect();
+            puzzlePieces[p].setPosition(rect.left, rect.top, false); 
+        }
+    }
 }
