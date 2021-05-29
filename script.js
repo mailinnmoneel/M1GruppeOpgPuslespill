@@ -5,6 +5,7 @@ var puzzleBox;
 var boxWidth = 800;
 var boxHeight = 600;
 var boxBorder = 50;
+var gridWidth = 4;
 
 var numberOfPieces = 12;
 
@@ -109,8 +110,7 @@ function dropPiece()
     
     sortPiecesByZIndex(heldObject.zIndex, heldObject);
 
-    checkIfClickedByPixelRounding(); // <-- Ny funksjon basert på Theodor sin ide for å runde ned pixelverdier.
-    checkIfClickedInPlacementGrid();
+    checkMouseGridPos();
 
     heldObject = null;
     isHoldingObject = false; 
@@ -148,10 +148,7 @@ function snapPiece(_idOfGridElementToSnapTo)
 
     let rect = document.getElementById(_idOfGridElementToSnapTo).getBoundingClientRect();
 
-    
-    // La til scrollY her.
     heldObject.setPosition(rect.left, rect.top + window.scrollY, false); 
-
 
     heldObject.setDrawDepth(0);
     heldObject.setCurrentGridLocation(_idOfGridElementToSnapTo);
@@ -234,8 +231,6 @@ async function checkIfPuzzleIsComplete()
 
 
 
-
-
 function resetPuzzle()
 {
     for (i = 0; i < numberOfPieces; i++)
@@ -246,11 +241,6 @@ function resetPuzzle()
 
     gameOver = false;
 }
-
-
-
-
-
 
 
 
@@ -282,137 +272,22 @@ function getPixels(coord)
 
 
 
-
-/*
-
-Forslag: Regne ut rute ved å runde ned museposisjon til nærmeste 200px for X og Y, og så sette posisjon basert på det.
-Theodor og Morten ser på det i helga
-
-*/
-/********EXPERIMENTAL***********/
-function checkIfClickedByPixelRounding()
+function checkMouseGridPos()
 {
     let rect = puzzleGrid.getBoundingClientRect();
 
-    let relativeMouseX = mousePosition.x - rect.left;
-    let relativeMouseY = mousePosition.y - rect.top;
+    if (mousePosition.x > rect.right || mousePosition.x < rect.left)
+        return;
 
-    console.log("X Pos: " + Math.floor(relativeMouseX / puzzlePieces[0].pieceWidth));
-    console.log("Y Pos: " + Math.floor(relativeMouseY / puzzlePieces[0].pieceHeight));
+    let gridX = Math.floor((mousePosition.x - rect.left) / puzzlePieces[0].pieceWidth);
+    let gridY = Math.floor((mousePosition.y - rect.top) / puzzlePieces[0].pieceHeight);
+
+    let index = (gridY * gridWidth) + gridX;
+
+    if (index >= 0 && index < numberOfPieces)    
+        snapPiece(gridIDs[index]);
 
 }
-/***********************/
-
-function checkIfClickedInPlacementGrid()
-{
-    let rect = puzzleGrid.getBoundingClientRect();
-    //let gridWidth = boxWidth / 4;
-    //let gridHeight = boxHeight / 3;
-    
-    if      (   mousePosition.y > rect.top &&
-                mousePosition.y < rect.top + 200 )
-            {
-                checkRow1(rect.left);
-            }
-    else if (   mousePosition.y > rect.top + 200 &&
-                mousePosition.y < rect.top + 400)
-            {
-                checkRow2(rect.left);
-            }
-    else if (   mousePosition.y > rect.top + 400 &&
-                mousePosition.y < rect.top + 600)
-            {
-                checkRow3(rect.left);
-            }
-}
-
-
-// Kan forsåvidt bare sende med rad.nr i tillegg til leftPos, også henter vi ut ID fra gridIDs's arrayet i stedet for å ha en funksjon per rad.
-// F.eks checkRow(rect.left, radNr). Så blir det snapPiece(gridIDs[ ((radNr - 1) * 4) + kolonneNr ]) for å snappe til et spesifik Grid Element.
-
-function checkRow1(leftPos)
-{
-
-    if  (   mousePosition.x > leftPos &&
-            mousePosition.x < leftPos + 200)
-            {
-                snapPiece("plass_1_1");
-            }
-    else if (   mousePosition.x > leftPos + 200 &&
-                mousePosition.x < leftPos + 400)
-            {
-                snapPiece("plass_1_2");
-            }
-
-    else if (   mousePosition.x > leftPos +  400 &&
-                mousePosition.x < leftPos +  600)
-            {
-                snapPiece("plass_1_3");
-            }
-    else if (   mousePosition.x > leftPos +  600 &&
-                mousePosition.x < leftPos +  800)
-            {
-                snapPiece("plass_1_4");
-            }
-}
-
-
-
-function checkRow2(leftPos)
-{
-    if  (   mousePosition.x > leftPos &&
-            mousePosition.x < leftPos + 200)
-        {
-            snapPiece("plass_2_1");
-        }
-    else if (   mousePosition.x > leftPos + 200 &&
-                mousePosition.x < leftPos + 400)
-        {
-            snapPiece("plass_2_2");
-        }
-
-    else if (   mousePosition.x > leftPos +  400 &&
-                mousePosition.x < leftPos +  600)
-        {
-            snapPiece("plass_2_3");
-        }
-    else if (   mousePosition.x > leftPos +  600 &&
-                mousePosition.x < leftPos +  800)
-        {
-            snapPiece("plass_2_4");
-        }    
-}
-
-
-
-function checkRow3(leftPos)
-{
-    if  (   mousePosition.x > leftPos &&
-            mousePosition.x < leftPos + 200)
-        {
-            snapPiece("plass_3_1");
-        }
-    else if (   mousePosition.x > leftPos + 200 &&
-                mousePosition.x < leftPos + 400)
-        {
-            snapPiece("plass_3_2");
-        }
-
-    else if (   mousePosition.x > leftPos +  400 &&
-                mousePosition.x < leftPos +  600)
-        {
-            snapPiece("plass_3_3");
-        }
-    else if (   mousePosition.x > leftPos +  600 &&
-                mousePosition.x < leftPos +  800)
-        {
-            snapPiece("plass_3_4");
-        }    
-}
-
-
-
-
 
 
 
