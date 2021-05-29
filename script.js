@@ -449,3 +449,12 @@ function recheckPiecePositions()
         }
     }
 }
+
+
+// Starter en timer som kjører en funksjon når timeren går ut. Restarter timeren hver gang vinduet resizes slik at recheckPiecePositions ikke kjører før vi stoper å resize
+var resizeDelayTimer;
+
+window.addEventListener('resize', function() {
+    clearTimeout(resizeDelayTimer);
+    resizeDelayTimer = setTimeout(recheckPiecePositions, 50);
+});
