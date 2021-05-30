@@ -71,13 +71,10 @@ function createPlacementGrids()
 async function pickUpPiece(_clickedPieceID)
 {  
 
-    if (isHoldingObject || gameOver)
-        return;
+    if (isHoldingObject || gameOver) return;
 
-    await sleep(20); // Uten denne ender dropPiece og pickUpPiece med kjøre på samme museklikk.
-      
+    await sleep(20); // Uten denne ender dropPiece og pickUpPiece med kjøre på samme museklikk.      
     isHoldingObject = true;
-
 
     for (p = 0; p < puzzlePieces.length; p++)
     { 
@@ -85,15 +82,14 @@ async function pickUpPiece(_clickedPieceID)
         {   
             heldObject = puzzlePieces[p];
             heldObject.element.style.zIndex = numberOfPieces+1;
-            
-            if (heldObject.isPlacedOnGrid)
-            {                
-                setGridSlotAsOccupied(findGridElementFromPiece(heldObject), false);
-                heldObject.setCurrentGridLocation(null);
-                heldObject.isPlacedOnGrid = false;
-            } 
-            
             heldObject.setOffset(mousePosition.x, mousePosition.y + window.scrollY);
+
+            if (!heldObject.isPlacedOnGrid) return;
+             
+            setGridSlotAsOccupied(findGridElementFromPiece(heldObject), false);
+            heldObject.setCurrentGridLocation(null);
+            heldObject.isPlacedOnGrid = false;            
+            
         }
     }
 }
@@ -103,17 +99,17 @@ async function pickUpPiece(_clickedPieceID)
 
 
 function dropPiece()
-{    
-    
-    if (isHoldingObject == false)
-        return;   
+{     
+    if (!isHoldingObject) return;   
     
     sortPiecesByZIndex(heldObject.zIndex);
 
-    checkMouseGridPos();
+    let index = getClickedGridIndex()
+    if (index != null)
+        snapPiece(gridIDs[index]);
 
-    heldObject = null;
-    isHoldingObject = false; 
+    heldObject = null;  
+    isHoldingObject = false;
 }
 
 
@@ -125,11 +121,8 @@ function sortPiecesByZIndex(_zIndexOfDroppedPiece)
     for (p = 0; p < puzzlePieces.length; p++)
     {
         if (puzzlePieces[p].zIndex > _zIndexOfDroppedPiece && puzzlePieces[p].isPlacedOnGrid == false)
-        {            
-            if (puzzlePieces[p].zIndex > 1)
-            {
-                puzzlePieces[p].setDrawDepth(puzzlePieces[p].zIndex-1);
-            }            
+        {   
+            puzzlePieces[p].setDrawDepth( Math.max(puzzlePieces[p].zIndex-1, 1) );                
         }                 
     }
 
@@ -142,26 +135,18 @@ function sortPiecesByZIndex(_zIndexOfDroppedPiece)
 
 function snapPiece(_idOfGridElementToSnapTo)
 {
-    if (checkIfGridIsOccupied(_idOfGridElementToSnapTo))
-        return;
-
+    if (checkIfGridIsOccupied(_idOfGridElementToSnapTo)) return;
 
     let rect = document.getElementById(_idOfGridElementToSnapTo).getBoundingClientRect();
 
-    heldObject.setPosition(rect.left, rect.top + window.scrollY, false); 
-
-    heldObject.setDrawDepth(0);
+    heldObject.setPosition(rect.left, rect.top + window.scrollY, false);  
     heldObject.setCurrentGridLocation(_idOfGridElementToSnapTo);
+    heldObject.isPlacedOnGrid = true;  
+    heldObject.setDrawDepth(0);
 
     setGridSlotAsOccupied(_idOfGridElementToSnapTo, true);
-
-    heldObject.isPlacedOnGrid = true;       
-    heldObject = null;  
-    isHoldingObject = false;
-
     checkIfPuzzleIsComplete();
 }
-
 
 
 
@@ -209,17 +194,15 @@ function findGridElementFromPiece(_piece)
 async function checkIfPuzzleIsComplete()
 {
     
-    let numberOfCorrectlyPlacedPieces = 0;
+    let correctlyPlacedPieces = 0;
 
     for (p = 0; p < puzzlePieces.length; p++)
     {       
         if (puzzlePieces[p].isPiecePlacedCorrectly())
-        {
-            numberOfCorrectlyPlacedPieces++;
-        }                    
+            correctlyPlacedPieces++;                   
     }
 
-    if(numberOfCorrectlyPlacedPieces == numberOfPieces)
+    if(correctlyPlacedPieces == numberOfPieces)
     {
         await sleep(50);
         gameOver = true;
@@ -272,21 +255,21 @@ function getPixels(coord)
 
 
 
-function checkMouseGridPos()
+function getClickedGridIndex()
 {
     let rect = puzzleGrid.getBoundingClientRect();
 
-    if (mousePosition.x > rect.right || mousePosition.x < rect.left)
-        return;
+    if (mousePosition.x > rect.right || mousePosition.x < rect.left) return;
 
     let gridX = Math.floor((mousePosition.x - rect.left) / puzzlePieces[0].pieceWidth);
     let gridY = Math.floor((mousePosition.y - rect.top) / puzzlePieces[0].pieceHeight);
     
     let index = (gridY * gridWidth) + gridX;
 
-    if (index >= 0 && index < numberOfPieces)    
-        snapPiece(gridIDs[index]);
+    if (index < 0 || index > numberOfPieces)    
+        index = null; 
 
+    return index;
 }
 
 
