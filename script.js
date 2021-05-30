@@ -78,19 +78,27 @@ async function pickUpPiece(_clickedPieceID)
     { 
         if (puzzlePieces[p].element.id == _clickedPieceID)
         {            
-            heldObject = puzzlePieces[p];
-            heldObject.element.style.zIndex = numberOfPieces+1;
-            heldObject.setOffset(mousePosition.x, mousePosition.y + window.scrollY);
-
-            if (!heldObject.isPlacedOnGrid) return;
-             
-            setGridSlotAsOccupied(findGridElementFromPiece(heldObject), false);
-            heldObject.setCurrentGridLocation(null);
-            heldObject.isPlacedOnGrid = false; 
-
-            p = puzzlePieces.length;
+            heldObject = puzzlePieces[p]; 
+            p = puzzlePieces.length;           
+            setPickedPieceProperties();  
         }
     }
+}
+
+
+
+
+
+function setPickedPieceProperties()
+{
+    heldObject.element.style.zIndex = numberOfPieces+1;
+    heldObject.setOffset(mousePosition.x, mousePosition.y + window.scrollY);
+
+    if (!heldObject.isPlacedOnGrid) return;
+     
+    setGridSlotAsOccupied(findGridElementFromPiece(heldObject), false);
+    heldObject.setCurrentGridLocation(null);
+    heldObject.isPlacedOnGrid = false; 
 }
 
 
