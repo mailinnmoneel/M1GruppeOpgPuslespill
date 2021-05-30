@@ -108,7 +108,7 @@ function dropPiece()
     if (isHoldingObject == false)
         return;   
     
-    sortPiecesByZIndex(heldObject.zIndex, heldObject);
+    sortPiecesByZIndex(heldObject.zIndex);
 
     checkMouseGridPos();
 
@@ -120,7 +120,7 @@ function dropPiece()
 
 
 
-function sortPiecesByZIndex(_zIndexOfDroppedPiece, _heldObject)
+function sortPiecesByZIndex(_zIndexOfDroppedPiece)
 {
     for (p = 0; p < puzzlePieces.length; p++)
     {
@@ -133,7 +133,7 @@ function sortPiecesByZIndex(_zIndexOfDroppedPiece, _heldObject)
         }                 
     }
 
-    _heldObject.setDrawDepth(numberOfPieces);
+    heldObject.setDrawDepth(numberOfPieces);
 }
 
 
@@ -193,11 +193,11 @@ function checkIfGridIsOccupied(_gridID)
 
 
 
-function findGridElementFromPiece(_heldObject)
+function findGridElementFromPiece(_piece)
 {
     for (g = 0; g < gridElements.length; g++)
     {
-        if (gridElements[g].gridID == _heldObject.currentGridLocation)
+        if (gridElements[g].gridID == _piece.currentGridLocation)
             return gridElements[g].gridID;
     }
 }
@@ -313,7 +313,7 @@ function sleep(ms)
 
 
 
-function recheckPiecePositions()   
+function refreshPiecePositions()   
 {
     for (p = 0; p < puzzlePieces.length; p++)
     {
@@ -331,5 +331,5 @@ var resizeDelayTimer;
 
 window.addEventListener('resize', function() {
     clearTimeout(resizeDelayTimer);
-    resizeDelayTimer = setTimeout(recheckPiecePositions, 50);
+    resizeDelayTimer = setTimeout(refreshPiecePositions, 50);
 });
