@@ -22,7 +22,8 @@ var gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
                "plass_3_1", "plass_3_2", "plass_3_3", "plass_3_4"];
 
 
-// Kjøres når siden laster
+
+
 function Awake()
 {
     document.addEventListener('mousemove', getMousePosition, true);
@@ -96,7 +97,6 @@ async function pickUpPiece(_clickedPieceID)
         }
     }
 }
-
 
 
 
@@ -281,7 +281,7 @@ function checkMouseGridPos()
 
     let gridX = Math.floor((mousePosition.x - rect.left) / puzzlePieces[0].pieceWidth);
     let gridY = Math.floor((mousePosition.y - rect.top) / puzzlePieces[0].pieceHeight);
-
+    
     let index = (gridY * gridWidth) + gridX;
 
     if (index >= 0 && index < numberOfPieces)    
@@ -306,13 +306,6 @@ function updateItemPos()
 
 
 
-function sleep(ms)
-{
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
-
 function refreshPiecePositions()   
 {
     for (p = 0; p < puzzlePieces.length; p++)
@@ -326,6 +319,9 @@ function refreshPiecePositions()
 }
 
 
+
+
+
 // Starter en timer som kjører en funksjon når timeren går ut. Restarter timeren hver gang vinduet resizes slik at recheckPiecePositions ikke kjører før vi stoper å resize
 var resizeDelayTimer;
 
@@ -333,3 +329,12 @@ window.addEventListener('resize', function() {
     clearTimeout(resizeDelayTimer);
     resizeDelayTimer = setTimeout(refreshPiecePositions, 50);
 });
+
+
+
+
+
+function sleep(ms)
+{
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
