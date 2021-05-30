@@ -278,8 +278,7 @@ function getClickedGridIndex()
 // Flytter brikken vi holder etter musepekeren
 function updateItemPos()
 {
-    if (heldObject == null)
-        return;  
+    if (!heldObject) return;  
 
     heldObject.setPosition(mousePosition.x, mousePosition.y + window.scrollY, true);
 }
