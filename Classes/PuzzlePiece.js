@@ -1,7 +1,7 @@
 class PuzzlePiece
 {    
 
-    constructor(_id, _correctGridLocation, _x, _y, _hasRandomSpawnPoint)
+    constructor(_id, _correctGridLocation, _x, _y, _hasRandomSpawnPoint, width, height)
     {   
 
         this.element = document.getElementById(_id);        
@@ -9,8 +9,8 @@ class PuzzlePiece
         this.x = _x;
         this.y = _y;
         
-        this.pieceWidth = 200;
-        this.pieceHeight = 200;
+        this.pieceWidth = width;
+        this.pieceHeight = height;
 
         this.isPlacedOnGrid = false;
         this.correctGridLocation = _correctGridLocation;

@@ -1,16 +1,14 @@
+var gameOver = false;
+
 var heldObject;
 var isHoldingObject = false;
 
 var puzzleBox;
-var boxWidth = 800;
-var boxHeight = 600;
 var boxBorder = 50;
+var puzzleGrid;
 var gridWidth = 4;
 
 var numberOfPieces = 12;
-
-var gameOver = false;
-
 var puzzlePieces = [];
 var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
@@ -45,7 +43,7 @@ function createPieces()
 {
     for (p = 0; p < numberOfPieces; p++)
     {
-        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true); 
+        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true, 200, 200); 
         newPiece.setDrawDepth(p+1);     
         puzzlePieces.push(newPiece);
     }    
@@ -79,7 +77,7 @@ async function pickUpPiece(_clickedPieceID)
     for (p = 0; p < puzzlePieces.length; p++)
     { 
         if (puzzlePieces[p].element.id == _clickedPieceID)
-        {   
+        {            
             heldObject = puzzlePieces[p];
             heldObject.element.style.zIndex = numberOfPieces+1;
             heldObject.setOffset(mousePosition.x, mousePosition.y + window.scrollY);
@@ -88,8 +86,9 @@ async function pickUpPiece(_clickedPieceID)
              
             setGridSlotAsOccupied(findGridElementFromPiece(heldObject), false);
             heldObject.setCurrentGridLocation(null);
-            heldObject.isPlacedOnGrid = false;            
-            
+            heldObject.isPlacedOnGrid = false; 
+
+            p = puzzlePieces.length;
         }
     }
 }
@@ -120,7 +119,7 @@ function sortPiecesByZIndex(_zIndexOfDroppedPiece)
 {
     for (p = 0; p < puzzlePieces.length; p++)
     {
-        if (puzzlePieces[p].zIndex > _zIndexOfDroppedPiece && puzzlePieces[p].isPlacedOnGrid == false)
+        if (puzzlePieces[p].zIndex > _zIndexOfDroppedPiece && !puzzlePieces[p].isPlacedOnGrid)
         {   
             puzzlePieces[p].setDrawDepth( Math.max(puzzlePieces[p].zIndex-1, 1) );                
         }                 
@@ -266,7 +265,7 @@ function getClickedGridIndex()
     
     let index = (gridY * gridWidth) + gridX;
 
-    if (index < 0 || index > numberOfPieces)    
+    if (index < 0 || index >= numberOfPieces)    
         index = null; 
 
     return index;

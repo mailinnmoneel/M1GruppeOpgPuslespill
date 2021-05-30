@@ -8,10 +8,7 @@ class GridElement
 
     setOccupied(isOccupied)
     {
-        if (isOccupied)
-            this.occupied = true;
-        else
-            this.occupied = false;
+        this.occupied = isOccupied;
     }
 
     checkIfOccupied()
