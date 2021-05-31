@@ -270,8 +270,8 @@ function getClickedGridIndex()
 
     if (mousePosition.x > rect.right || mousePosition.x < rect.left) return;
 
-    let gridX = Math.floor((mousePosition.x - rect.left) / puzzlePieces[0].pieceWidth);
-    let gridY = Math.floor((mousePosition.y - rect.top) / puzzlePieces[0].pieceHeight);
+    let gridX = Math.floor((mousePosition.x - rect.left) / pieceWidth);
+    let gridY = Math.floor((mousePosition.y - rect.top) / pieceHeight);
     
     let index = (gridY * gridWidth) + gridX;
 
