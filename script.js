@@ -4,18 +4,18 @@ var heldObject;
 var isHoldingObject = false;
 
 var puzzleBox;
-var boxBorder = 50;
+const boxBorder = 50;
 var puzzleGrid;
-var gridWidth = 4;
+const gridWidth = 4;
 
-var numberOfPieces = 12;
+const numberOfPieces = 12;
 var puzzlePieces = [];
-var pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
+const pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
                 "3-1", "3-2", "3-3", "3-4"];
 
 var gridElements = [];
-var gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
+const gridIDs = ["plass_1_1", "plass_1_2", "plass_1_3", "plass_1_4",
                "plass_2_1", "plass_2_2", "plass_2_3", "plass_2_4",
                "plass_3_1", "plass_3_2", "plass_3_3", "plass_3_4"];
 
