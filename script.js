@@ -9,6 +9,8 @@ var puzzleGrid;
 const gridWidth = 4;
 
 const numberOfPieces = 12;
+const pieceWidth = 200;
+const pieceHeight = 200;
 var puzzlePieces = [];
 const pieceIDs = ["1-1", "1-2", "1-3", "1-4", 
                 "2-1", "2-2", "2-3", "2-4", 
@@ -43,7 +45,7 @@ function createPieces()
 {
     for (p = 0; p < numberOfPieces; p++)
     {
-        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true, 200, 200); 
+        let newPiece = new PuzzlePiece(pieceIDs[p], gridIDs[p], 0, 0, true, pieceWidth, pieceHeight); 
         newPiece.setDrawDepth(p+1);     
         puzzlePieces.push(newPiece);
     }    
