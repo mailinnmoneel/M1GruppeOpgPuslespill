@@ -3,11 +3,7 @@ class PuzzlePiece
 
     constructor(_id, _correctGridLocation, _x, _y, _hasRandomSpawnPoint, width, height)
     {   
-
         this.element = document.getElementById(_id);        
-
-        this.x = _x;
-        this.y = _y;
         
         this.pieceWidth = width;
         this.pieceHeight = height;
@@ -17,10 +13,10 @@ class PuzzlePiece
 
         if (_hasRandomSpawnPoint)
             this.randomizeStartPosition();
+        else
+            { this.x = _x; this.y = _y; }
         
-        this.element.style.left = getPixels(this.x);
-        this.element.style.top = getPixels(this.y);
-            
+        this.updatePosition();            
     }
 
     setOffset(_mouseX, _mouseY)
